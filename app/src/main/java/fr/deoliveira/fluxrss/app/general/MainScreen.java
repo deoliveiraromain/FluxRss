@@ -34,6 +34,7 @@ public class MainScreen  extends ActionBarActivity{
 //        Intent i = new Intent(Intent.ACTION_WEB_SEARCH,uriQuery);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+
         //setActionBar(toolbar); si on extends par ActionBarActivity pour la compat
 
         setSupportActionBar(toolbar);
