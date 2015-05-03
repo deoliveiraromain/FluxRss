@@ -52,6 +52,7 @@ public class PodcastAdapter extends ArrayAdapter<Podcast> {
         viewHelper.resume.setText(podcast.getResume());
         viewHelper.titre.setText(podcast.getTitre());
 
+        
         return conView;
     }
 
