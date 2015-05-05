@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<color name="colorFeedHunter">#ffd764</color></resources>
+<color name="colorFeedHunter">#ffd764</color>
+<color name="rssRed">#ffe53b11</color>
+
+</resources>
