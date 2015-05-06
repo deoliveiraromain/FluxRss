@@ -1,4 +1,4 @@
-# Init Todo List
+# Todo List
 
 - [ ] Mettre en place les différents fragments 
 - [ ] Mettre en place un custom Adapter et un modèle pour les éléments de la listView
