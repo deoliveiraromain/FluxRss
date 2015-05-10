@@ -1,6 +1,7 @@
 package fr.deoliveira.fluxrss.app.listpodcasters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +22,20 @@ public class ListPodcastersAdapter extends ArrayAdapter<ListPodcasters> {
 
     private final List<ListPodcasters> listpodcasters;
     private Activity activity;
+    private Context context;
 
     public ListPodcastersAdapter(ListPodcastersFeedActivity rssFeedActivity, List<ListPodcasters> listpodcasters) {
 
         super(rssFeedActivity, R.layout.itempodcasters, listpodcasters);
         this.listpodcasters = listpodcasters;
         this.activity = rssFeedActivity;
+
+    }
+
+    public ListPodcastersAdapter(Context context, List<ListPodcasters> listpodcasters) {
+        super(context, R.layout.itempodcasters, listpodcasters);
+        this.listpodcasters = listpodcasters;
+        this.context = context;
 
     }
 
@@ -38,7 +47,8 @@ public class ListPodcastersAdapter extends ArrayAdapter<ListPodcasters> {
 
         conView = convertView;
         if (convertView == null) {
-            LayoutInflater layoutInflater = activity.getLayoutInflater();
+            //LayoutInflater layoutInflater = activity.getLayoutInflater();
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
             conView = layoutInflater.inflate(R.layout.itempodcasters, null); //true ?
             viewHelper = new ViewHelper();
             viewHelper.auteur = (TextView) conView.findViewById(R.id.auteur);

@@ -66,8 +66,6 @@ public class ListPodcastersFeedActivity extends ListActivity {
         setListAdapter(podcastInfoArrayAdapter);
 
 
-
-
     }
 
     @Override

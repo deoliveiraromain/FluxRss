@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="fr.deoliveira.fluxrss.app.listpodcasters.ListPodcastersFragment">
+
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/hello_blank_fragment"/>
+
+</FrameLayout>
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/root">
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/test"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textAppearance="?android:attr/textAppearanceListItemSmall"
+              android:gravity="center_vertical"
+              android:paddingLeft="16dp"
+              android:paddingRight="16dp"
+              android:textColor="#fff"
+              android:background="?android:attr/activatedBackgroundIndicator"
+              android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                android:text="TESTTEXTVIEW"/>
+
+    <ListView android:layout_height="fill_parent"
+              android:layout_width="fill_parent"
+              android:layout_marginTop="20dp"
+              android:id="@android:id/list">
+    </ListView>
+</LinearLayout>
