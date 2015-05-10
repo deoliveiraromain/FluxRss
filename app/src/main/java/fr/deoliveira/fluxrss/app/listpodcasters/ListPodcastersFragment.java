@@ -80,6 +80,7 @@ public class ListPodcastersFragment extends Fragment {
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
+        //TODO : ici qu'on gère un item cliqué dans la liste des podcasters., on envoie les infos nécessaire au changement de fragment
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
