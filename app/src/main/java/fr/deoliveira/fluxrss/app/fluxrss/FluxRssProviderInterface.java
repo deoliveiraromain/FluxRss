@@ -1,4 +1,4 @@
-package fr.deoliveira.fluxrss.app.listpodcasters;
+package fr.deoliveira.fluxrss.app.fluxrss;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import java.util.List;
  * Time: 00:01
  * To change this template use File | Settings | File Templates.
  */
-public interface ListPodcastersProviderInterface {
+public interface FluxRssProviderInterface {
     String getName();
     String getUrl();
-    List<ListPodcasters> getListPodcasters();
+    List<FluxRss> getListFluxRss();
 }

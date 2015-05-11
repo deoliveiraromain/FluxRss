@@ -1,4 +1,4 @@
-package fr.deoliveira.fluxrss.app.podcast;
+package fr.deoliveira.fluxrss.app.itemrss;
 
 /**
  * Created with IntelliJ IDEA.
@@ -6,16 +6,16 @@ package fr.deoliveira.fluxrss.app.podcast;
  * Date: 28/11/13
  * Time: 14:49
  */
-public class Podcast {
+public class ItemRss {
     public String titre;
     public String resume;
     public String lien;
 
 
-    public Podcast() {
+    public ItemRss() {
     }
 
-    public Podcast(String titre, String resume, String lien) {
+    public ItemRss(String titre, String resume, String lien) {
         setTitre(titre);
         setResume(resume);
         setLien(lien);

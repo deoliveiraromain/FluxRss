@@ -1,4 +1,4 @@
-package fr.deoliveira.fluxrss.app.listpodcasters;
+package fr.deoliveira.fluxrss.app.fluxrss;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,23 +18,23 @@ import java.util.List;
  * Time: 00:49
  * To change this template use File | Settings | File Templates.
  */
-public class ListPodcastersAdapter extends ArrayAdapter<ListPodcasters> {
+public class FluxRssAdapter extends ArrayAdapter<FluxRss> {
 
-    private final List<ListPodcasters> listpodcasters;
+    private final List<FluxRss> listFluxRss;
     private Activity activity;
     private Context context;
 
-    public ListPodcastersAdapter(ListPodcastersFeedActivity rssFeedActivity, List<ListPodcasters> listpodcasters) {
+    public FluxRssAdapter(ListPodcastersFeedActivity rssFeedActivity, List<FluxRss> listFluxRss) {
 
-        super(rssFeedActivity, R.layout.itempodcasters, listpodcasters);
-        this.listpodcasters = listpodcasters;
+        super(rssFeedActivity, R.layout.itemfluxrss, listFluxRss);
+        this.listFluxRss = listFluxRss;
         this.activity = rssFeedActivity;
 
     }
 
-    public ListPodcastersAdapter(Context context, List<ListPodcasters> listpodcasters) {
-        super(context, R.layout.itempodcasters, listpodcasters);
-        this.listpodcasters = listpodcasters;
+    public FluxRssAdapter(Context context, List<FluxRss> listeFluxRss) {
+        super(context, R.layout.itemfluxrss, listeFluxRss);
+        this.listFluxRss = listeFluxRss;
         this.context = context;
 
     }
@@ -49,7 +49,7 @@ public class ListPodcastersAdapter extends ArrayAdapter<ListPodcasters> {
         if (convertView == null) {
             //LayoutInflater layoutInflater = activity.getLayoutInflater();
             LayoutInflater layoutInflater = LayoutInflater.from(context);
-            conView = layoutInflater.inflate(R.layout.itempodcasters, null); //true ?
+            conView = layoutInflater.inflate(R.layout.itemfluxrss, null); //true ?
             viewHelper = new ViewHelper();
             viewHelper.auteur = (TextView) conView.findViewById(R.id.auteur);
             viewHelper.nbPodcasts = (TextView) conView.findViewById(R.id.labelArticlesCount);
@@ -59,10 +59,10 @@ public class ListPodcastersAdapter extends ArrayAdapter<ListPodcasters> {
             viewHelper = (ViewHelper) convertView.getTag();
         }
 
-        ListPodcasters podcaster = (ListPodcasters) getItem(position);
-      //  ListPodcasters podcaster = listpodcasters.get(position);
+        FluxRss podcaster = (FluxRss) getItem(position);
+      //  FluxRss podcaster = listFluxRss.get(position);
         viewHelper.auteur.setText(podcaster.auteur);
-        viewHelper.nbPodcasts.setText(podcaster.nbPodcasts);
+        viewHelper.nbPodcasts.setText(podcaster.nbArticles);
 
 
         return conView;

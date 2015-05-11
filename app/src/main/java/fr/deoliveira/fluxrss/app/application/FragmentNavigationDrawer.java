@@ -1,4 +1,4 @@
-package fr.deoliveira.fluxrss.app.general;
+package fr.deoliveira.fluxrss.app.application;
  
 /*
 ** FragmentNavigationDrawer object for use with support-v7 library
@@ -19,7 +19,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import fr.deoliveira.fluxrss.app.R;
 
@@ -65,7 +64,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         // Setup toolbar
         toolbar = drawerToolbar;
         lvDrawer.setAdapter(drawerAdapter);
-        // Setup item listener
+        // Setup itemrss listener
         lvDrawer.setOnItemClickListener(new FragmentDrawerItemListener());
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar icon
@@ -107,7 +106,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
 
-        // Highlight the selected item, update the title, and close the drawer
+        // Highlight the selected itemrss, update the title, and close the drawer
         lvDrawer.setItemChecked(position, true);
         setTitle(navItem.getTitle());
         //closeDrawer(lvDrawer);

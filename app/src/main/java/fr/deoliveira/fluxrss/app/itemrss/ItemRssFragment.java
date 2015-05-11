@@ -1,9 +1,9 @@
-package fr.deoliveira.fluxrss.app.listpodcasters;
+package fr.deoliveira.fluxrss.app.itemrss;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,28 +11,28 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import fr.deoliveira.fluxrss.app.R;
 
-import java.util.List;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ListPodcastersFragment.OnFragmentInteractionListener} interface
+ * {@link ItemRssFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ListPodcastersFragment#newInstance} factory method to
+ * Use the {@link ItemRssFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListPodcastersFragment extends Fragment {
+public class ItemRssFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private final int internalRequestCode=568057870;
-    private ArrayAdapter<ListPodcasters> podcastInfoArrayAdapter;
-    private ListView listViewPodcaters;
+    private int position;
+    private ItemRssProvider itemsRssProvider;
+    private ArrayAdapter<ItemRss> fluxRssAdapter;
+    private ListView listViewItemRss;
 
 
     private OnFragmentInteractionListener mListener;
@@ -43,11 +43,11 @@ public class ListPodcastersFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListPodcastersFragment.
+     * @return A new instance of fragment ItemRssFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListPodcastersFragment newInstance(String param1, String param2) {
-        ListPodcastersFragment fragment = new ListPodcastersFragment();
+    public static ItemRssFragment newInstance(String param1, String param2) {
+        ItemRssFragment fragment = new ItemRssFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -55,7 +55,7 @@ public class ListPodcastersFragment extends Fragment {
         return fragment;
     }
 
-    public ListPodcastersFragment() {
+    public ItemRssFragment() {
         // Required empty public constructor
     }
 
@@ -72,15 +72,11 @@ public class ListPodcastersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =  inflater.inflate(R.layout.fragment_list_podcasteur, container, false);
-        listViewPodcaters = (ListView) rootView.findViewById(android.R.id.list);
-        loadPodcast();
-        return rootView;
+        return inflater.inflate(R.layout.fragment_item_rss, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
-        //TODO : ici qu'on gère un item cliqué dans la liste des podcasters., on envoie les infos nécessaire au changement de fragment
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
@@ -116,22 +112,6 @@ public class ListPodcastersFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
-    }
-
-
-    private int loadPodcast() {
-        // TODO : ici le provider ira chercher les podcasteurs EN BDD, pour chaque on a une ligne dans l'adapter
-        ListPodcastersProviderInterface podcastersProviderInterface = new ListPodcastersProvider();
-        List<ListPodcasters> podcasts = podcastersProviderInterface.getListPodcasters();
-        Bind(podcasts);
-        return podcasts.size();
-    }
-
-    private void Bind(List<ListPodcasters> podcasts) {
-        this.podcastInfoArrayAdapter = new ListPodcastersAdapter(this.getActivity().getBaseContext(), podcasts);
-        this.listViewPodcaters.setAdapter(podcastInfoArrayAdapter);
-
-
     }
 
 }

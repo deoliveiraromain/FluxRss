@@ -1,4 +1,4 @@
-package fr.deoliveira.fluxrss.app.listpodcasters;
+package fr.deoliveira.fluxrss.app.fluxrss;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import fr.deoliveira.fluxrss.app.R;
-import fr.deoliveira.fluxrss.app.podcast.PodcastFeedActivity;
+import fr.deoliveira.fluxrss.app.itemrss.PodcastFeedActivity;
 
 
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 public class ListPodcastersFeedActivity extends ListActivity {
     private String url;
     private final int internalRequestCode;
-    private ArrayAdapter<ListPodcasters> podcastInfoArrayAdapter;
+    private ArrayAdapter<FluxRss> podcastInfoArrayAdapter;
 
     public ListPodcastersFeedActivity() {
         internalRequestCode = 568057870;
@@ -37,7 +37,7 @@ public class ListPodcastersFeedActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.feedlist_activity);
+        setContentView(R.layout.fragment_flux_rss);
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
@@ -55,14 +55,14 @@ public class ListPodcastersFeedActivity extends ListActivity {
             return 0;
         }*/
         // TODO : ici le provider ira chercher les podcasteurs EN BDD, pour chaque on a une ligne dans l'adapter
-        ListPodcastersProviderInterface podcastersProviderInterface = new ListPodcastersProvider();
-        List<ListPodcasters> podcasts = podcastersProviderInterface.getListPodcasters();
+        FluxRssProviderInterface podcastersProviderInterface = new FluxRssProvider();
+        List<FluxRss> podcasts = podcastersProviderInterface.getListFluxRss();
         Bind(podcasts);
         return podcasts.size();
     }
 
-    private void Bind(List<ListPodcasters> podcasts) {
-        this.podcastInfoArrayAdapter = new ListPodcastersAdapter(this, podcasts);
+    private void Bind(List<FluxRss> podcasts) {
+        this.podcastInfoArrayAdapter = new FluxRssAdapter(this, podcasts);
         setListAdapter(podcastInfoArrayAdapter);
 
 
@@ -71,7 +71,7 @@ public class ListPodcastersFeedActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
-        ListPodcasters podcaster = (ListPodcasters) getListView().getItemAtPosition(position);
+        FluxRss podcaster = (FluxRss) getListView().getItemAtPosition(position);
         Toast.makeText(getApplicationContext(), podcaster.getAuteur() + "\n" + podcaster.getnbPodcasts(), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, PodcastFeedActivity.class);
         intent.putExtra("URL", podcaster.getUrl());
@@ -97,8 +97,8 @@ public class ListPodcastersFeedActivity extends ListActivity {
 
     private void updateLabel(int nbArticle, int position) {
         if (nbArticle > 0) {
-            ListPodcasters podcaster = (ListPodcasters) getListView().getItemAtPosition(position);
-            podcaster.setNbPodcasts(String.format(getString(R.string.articleTrouve), nbArticle));
+            FluxRss podcaster = (FluxRss) getListView().getItemAtPosition(position);
+            podcaster.setNbArticles(String.format(getString(R.string.articleTrouve), nbArticle));
             this.podcastInfoArrayAdapter.notifyDataSetChanged();
 
         }

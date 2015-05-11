@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
@@ -10,6 +11,7 @@
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
         <item name="colorPrimary">@color/rssRed</item>
         <item name="colorPrimaryDark">@color/rssRedDark</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 </resources>

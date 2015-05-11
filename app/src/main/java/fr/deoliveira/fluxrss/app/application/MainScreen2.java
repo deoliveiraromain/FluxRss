@@ -1,22 +1,21 @@
-package fr.deoliveira.fluxrss.app.general;
+package fr.deoliveira.fluxrss.app.application;
 
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.*;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import fr.deoliveira.fluxrss.app.R;
-import fr.deoliveira.fluxrss.app.listpodcasters.ListPodcastersFragment;
+import fr.deoliveira.fluxrss.app.fluxrss.FluxRssFragment;
 
 /**
  * Created by Romain on 07/05/2015.
  */
-public class MainScreen2 extends AppCompatActivity implements ListPodcastersFragment.OnFragmentInteractionListener{
+public class MainScreen2 extends AppCompatActivity implements FluxRssFragment.OnFragmentInteractionListener{
 
     private FragmentNavigationDrawer dlDrawer;
 
@@ -29,14 +28,21 @@ public class MainScreen2 extends AppCompatActivity implements ListPodcastersFrag
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(getResources().getColor(R.color.rssRedDark));
+        }
         // Find our drawer view
         dlDrawer = (FragmentNavigationDrawer) findViewById(R.id.drawer_layout);
-        LinearLayout rootDrawerView = (LinearLayout)findViewById(R.id.rootDrawer);
+        LinearLayout rootDrawerView = (LinearLayout) findViewById(R.id.rootDrawer);
         // Setup drawer view
         dlDrawer.setupDrawerConfiguration((ListView) findViewById(R.id.lvDrawer), toolbar,
                 R.layout.drawer_list_item, R.id.flContent,rootDrawerView);
         // Add nav items
-        dlDrawer.addNavItem("Podcaster", "First Fragment", ListPodcastersFragment.class);
+        dlDrawer.addNavItem("Mes Flux Rss", "First Fragment", FluxRssFragment.class);
+        //dlDrawer.addNavItem("");
         //dlDrawer.addNavItem("Second", "Second Fragment", SecondFragment.class);
         //dlDrawer.addNavItem("Third", "Third Fragment", ThirdFragment.class);
         // Select default

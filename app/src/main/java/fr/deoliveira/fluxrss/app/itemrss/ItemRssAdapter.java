@@ -1,4 +1,4 @@
-package fr.deoliveira.fluxrss.app.podcast;
+package fr.deoliveira.fluxrss.app.itemrss;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -16,16 +16,16 @@ import java.util.List;
  * Date: 28/11/13
  * Time: 15:15
  */
-public class PodcastAdapter extends ArrayAdapter<Podcast> {
-    private final List<Podcast> podcasts;
+public class ItemRssAdapter extends ArrayAdapter<ItemRss> {
+    private final List<ItemRss> itemsRss;
     private Activity activity;
 
-    public PodcastAdapter(PodcastFeedActivity rssFeedActivity, List<Podcast> podcasts) {
+    public ItemRssAdapter(PodcastFeedActivity rssFeedActivity, List<ItemRss> itemsRss) {
 
 
         // TODO : android.R.layout.simple_list_item_single_choice  => tester pour le choix
-        super(rssFeedActivity, R.layout.item, podcasts);
-        this.podcasts = podcasts;
+        super(rssFeedActivity, R.layout.itemrss, itemsRss);
+        this.itemsRss = itemsRss;
         activity = rssFeedActivity;
     }
 
@@ -37,7 +37,7 @@ public class PodcastAdapter extends ArrayAdapter<Podcast> {
         conView = convertView;
         if (convertView == null) {
             LayoutInflater layoutInflater = activity.getLayoutInflater();
-            conView = layoutInflater.inflate(R.layout.item, null); //true ?
+            conView = layoutInflater.inflate(R.layout.itemrss, null); //true ?
             viewHelper = new ViewHelper();
             viewHelper.lien = (TextView) conView.findViewById(R.id.lien);
             viewHelper.resume = (TextView) conView.findViewById(R.id.resume);
@@ -47,7 +47,7 @@ public class PodcastAdapter extends ArrayAdapter<Podcast> {
             viewHelper = (ViewHelper) convertView.getTag();
         }
 
-        Podcast podcast = podcasts.get(position);
+        ItemRss podcast = itemsRss.get(position);
         viewHelper.lien.setText(podcast.getLien());
         viewHelper.resume.setText(podcast.getResume());
         viewHelper.titre.setText(podcast.getTitre());

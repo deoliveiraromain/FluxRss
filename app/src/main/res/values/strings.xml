@@ -14,7 +14,7 @@
     <string name="date">2013-2014</string>
     <string name="articleTrouve">%1$d articles</string>
     <string name="auteursTrouves">%1$d auteurs</string>
-    <string name="defaultLabelValue">Veuillez récupérer les podcasts</string>
+    <string name="defaultLabelValue">Veuillez récupérer les itemsRss</string>
 
     <string name="viewPodcasts">Voir les Podcasts</string>
     <string name="addPodcasts">Ajouter une source</string>

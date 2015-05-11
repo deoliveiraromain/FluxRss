@@ -1,4 +1,4 @@
-package fr.deoliveira.fluxrss.app.podcast;
+package fr.deoliveira.fluxrss.app.itemrss;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import java.util.List;
  * Date: 28/11/13
  * Time: 14:48
  */
-public interface PodcastProviderInterface {
+public interface ItemsRssProviderInterface {
     String getName();
     String getUrl();
-    List<Podcast> getPodcast();
+    List<ItemRss> getListItemsRss();
 }
