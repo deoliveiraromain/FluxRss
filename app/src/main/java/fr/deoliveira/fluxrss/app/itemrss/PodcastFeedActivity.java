@@ -20,7 +20,7 @@ import java.util.List;
  * Date: 28/11/13
  * Time: 10:57
  */
-public class PodcastFeedActivity extends ListActivity {
+public class PodcastFeedActivity extends ListActivity implements  ItemRssProvider.OnFeedParsed {
     private String url;
 
     private int position;
@@ -80,6 +80,11 @@ public class PodcastFeedActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         ItemRss podcast = (ItemRss) getListView().getItemAtPosition(position);
         Toast.makeText(getApplicationContext(), podcast.getTitre() + "\n" + podcast.getResume(), Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onFeedParsed() {
 
     }
 }

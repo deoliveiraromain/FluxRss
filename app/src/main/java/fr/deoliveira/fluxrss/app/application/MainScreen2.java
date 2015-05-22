@@ -4,6 +4,8 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
@@ -11,11 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import fr.deoliveira.fluxrss.app.R;
 import fr.deoliveira.fluxrss.app.fluxrss.FluxRssFragment;
+import fr.deoliveira.fluxrss.app.itemrss.ItemRssFragment;
 
 /**
  * Created by Romain on 07/05/2015.
  */
-public class MainScreen2 extends AppCompatActivity implements FluxRssFragment.OnFragmentInteractionListener{
+public class MainScreen2 extends AppCompatActivity implements FluxRssFragment.OnFragmentInteractionListener, ItemRssFragment.OnFragmentInteractionListener {
 
     private FragmentNavigationDrawer dlDrawer;
 
@@ -28,18 +31,18 @@ public class MainScreen2 extends AppCompatActivity implements FluxRssFragment.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(getResources().getColor(R.color.rssRedDark));
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window window = getWindow();
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            window.setStatusBarColor(getResources().getColor(R.color.rssRedDark));
+//        }
         // Find our drawer view
         dlDrawer = (FragmentNavigationDrawer) findViewById(R.id.drawer_layout);
         LinearLayout rootDrawerView = (LinearLayout) findViewById(R.id.rootDrawer);
         // Setup drawer view
         dlDrawer.setupDrawerConfiguration((ListView) findViewById(R.id.lvDrawer), toolbar,
-                R.layout.drawer_list_item, R.id.flContent,rootDrawerView);
+                R.layout.drawer_list_item, R.id.flContent, rootDrawerView);
         // Add nav items
         dlDrawer.addNavItem("Mes Flux Rss", "First Fragment", FluxRssFragment.class);
         //dlDrawer.addNavItem("");
@@ -52,7 +55,25 @@ public class MainScreen2 extends AppCompatActivity implements FluxRssFragment.On
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri){
+    public void onFragmentInteraction(String url) {
+        ItemRssFragment itemRssFragment = null;
+        try {
+            itemRssFragment = ItemRssFragment.newInstance(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.flContent, itemRssFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        // and add the transaction to the back stack so the user can navigate back
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 

@@ -24,13 +24,13 @@ public class FluxRssAdapter extends ArrayAdapter<FluxRss> {
     private Activity activity;
     private Context context;
 
-    public FluxRssAdapter(ListPodcastersFeedActivity rssFeedActivity, List<FluxRss> listFluxRss) {
-
-        super(rssFeedActivity, R.layout.itemfluxrss, listFluxRss);
-        this.listFluxRss = listFluxRss;
-        this.activity = rssFeedActivity;
-
-    }
+//    public FluxRssAdapter(ListPodcastersFeedActivity rssFeedActivity, List<FluxRss> listFluxRss) {
+//
+//        super(rssFeedActivity, R.layout.itemfluxrss, listFluxRss);
+//        this.listFluxRss = listFluxRss;
+//        this.activity = rssFeedActivity;
+//
+//    }
 
     public FluxRssAdapter(Context context, List<FluxRss> listeFluxRss) {
         super(context, R.layout.itemfluxrss, listeFluxRss);

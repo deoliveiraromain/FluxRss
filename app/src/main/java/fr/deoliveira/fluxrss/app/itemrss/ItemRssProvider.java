@@ -1,5 +1,6 @@
 package fr.deoliveira.fluxrss.app.itemrss;
 
+import android.content.Context;
 import android.util.Log;
 import at.theengine.android.simple_rss2_android.RSSItem;
 import at.theengine.android.simple_rss2_android.SimpleRss2Parser;
@@ -16,36 +17,33 @@ import java.util.List;
  */
 public class ItemRssProvider implements ItemsRssProviderInterface {
     private String URL;
-    private final List<RSSItem> listeitems;
-    private List<ItemRss> itemsRss;
+    // private final List<RSSItem> listeitems;
+    private List<ItemRss> itemsRss = new ArrayList<>();
     private final SimpleRss2Parser parser;
     private PodcastFeedActivity feedActivity;
 
-    public ItemRssProvider(String url, final PodcastFeedActivity feedActivity) {
+    private OnFeedParsed mListener;
+
+    public ItemRssProvider(String url, final OnFeedParsed itemRssFragment) {
         this.URL = url;
-        this.feedActivity=feedActivity;
-        this.listeitems = new ArrayList<>();
+        this.mListener = itemRssFragment;
+        this.feedActivity = feedActivity;
+        // this.listeitems = new ArrayList<>();
         //this.listeitems=listeitems;
         this.parser = new SimpleRss2Parser(url,
                 new SimpleRss2ParserCallback() {
                     @Override
                     public void onFeedParsed(List<RSSItem> items) {
-                        for (int i = 0; i < items.size(); i++) {
-                            Log.e("testInternet", items.get(i).getTitle());
-                            listeitems.add(items.get(i));
-                        }
-                        populatePodcastList(items);
-                        feedActivity.displayPodcasts();
-                        //Intent intent = getIntent();
-                        //Bundle bundle = intent.getExtras();
-
-                        //if (bundle != null) {
-                        //   url = bundle.getString("URL");
-                        //   position = bundle.getInt("position");
+                        // for (int i = 0; i < items.size(); i++) {
+                        //    Log.e("testInternet", items.get(i).getTitle());
+                        //    listeitems.add(items.get(i));
                         //}
-
-                        //intent.putExtra("nbArticle", loadPodcast());
-                        //setResult(Activity.RESULT_OK, intent);
+                        populatePodcastList(items);
+                        // feedActivity.displayPodcasts();
+                       // ItemRssFragment item = (ItemRssFragment) mListener;
+                        //item.displayPodcasts();
+                        mListener.onFeedParsed();
+                        //TODO : ici on appelle le callback pour display
                     }
 
                     @Override
@@ -54,20 +52,26 @@ public class ItemRssProvider implements ItemsRssProviderInterface {
                     }
                 }
         );
+       //ItemRssFragment item = (ItemRssFragment) mListener;
+        //item.displayPodcasts();
+    }
+
+
+    public interface OnFeedParsed {
+        public void onFeedParsed();
     }
 
     public void parseUrl() {
         this.parser.parseAsync();
     }
 
-    private void populatePodcastList(List<RSSItem> items){
-        itemsRss = new ArrayList<ItemRss>();
+    private void populatePodcastList(List<RSSItem> items) {
         //TODO : faire une méthode qui vérifie si le podcast est déjà dans la liste
         //TODO : cacher le lien dans un bouton et rajouter description (voir adapter)
         for (RSSItem item : items) {
             ItemRss podcast = new ItemRss(item.getTitle(), item.getDate(), item.getLink().toString());
             itemsRss.add(podcast);
-            Log.i("testPOdcast?",podcast.getTitre());
+            Log.i("testPOdcast?", podcast.getTitre());
         }
     }
 
@@ -83,19 +87,20 @@ public class ItemRssProvider implements ItemsRssProviderInterface {
 
     @Override
     public List<ItemRss> getListItemsRss() {
-        Log.i("testgetPodcats","Passage Méthode");
+        Log.i("testgetPodcats", "Passage Méthode");
 //        List<ItemRss> itemsRss = new ArrayList<ItemRss>();
 //        //TODO : faire une méthode qui vérifie si le podcast est déjà dans la liste
 //        for (RSSItem itemrss : listeitems) {
 //            ItemRss podcast = new ItemRss(itemrss.getTitle(), itemrss.getDate(), itemrss.getLink().toString());
 //            itemsRss.add(podcast);
-//            Log.i("testPOdcast?",podcast.getTitre());
-//        }
+        for (ItemRss itemRss : itemsRss) {
+            Log.i("testGET?", itemRss.getTitre());
+        }
 //        Log.i("testTailleListe","taille Liste ItemRss "+listeitems.size());
 //        Log.i("testTailleListe", "taille Liste ItemRss "+itemsRss.size());
-        return itemsRss;
+    return itemsRss;
 
-    }
+}
 
 
 }
