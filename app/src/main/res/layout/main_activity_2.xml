@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fr.deoliveira.fluxrss.app.application.FragmentNavigationDrawer
-        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawer_layout"
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                   android:fitsSystemWindows="true"
                   android:id="@+id/rootDrawer"
                   android:layout_gravity="start"
-                  android:background="@color/rssRed">
+                  android:background="@color/rssRed" android:paddingTop="24dp">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
             <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                        android:src="@drawable/rssicon"/>

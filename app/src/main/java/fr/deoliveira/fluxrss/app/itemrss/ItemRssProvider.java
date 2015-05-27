@@ -40,9 +40,11 @@ public class ItemRssProvider implements ItemsRssProviderInterface {
                         //}
                         populatePodcastList(items);
                         // feedActivity.displayPodcasts();
-                       // ItemRssFragment item = (ItemRssFragment) mListener;
+                        // ItemRssFragment item = (ItemRssFragment) mListener;
                         //item.displayPodcasts();
-                        mListener.onFeedParsed();
+                        if (mListener != null) {
+                            mListener.onFeedParsed();
+                        }
                         //TODO : ici on appelle le callback pour display
                     }
 
@@ -52,7 +54,7 @@ public class ItemRssProvider implements ItemsRssProviderInterface {
                     }
                 }
         );
-       //ItemRssFragment item = (ItemRssFragment) mListener;
+        //ItemRssFragment item = (ItemRssFragment) mListener;
         //item.displayPodcasts();
     }
 
@@ -98,9 +100,9 @@ public class ItemRssProvider implements ItemsRssProviderInterface {
         }
 //        Log.i("testTailleListe","taille Liste ItemRss "+listeitems.size());
 //        Log.i("testTailleListe", "taille Liste ItemRss "+itemsRss.size());
-    return itemsRss;
+        return itemsRss;
 
-}
+    }
 
 
 }

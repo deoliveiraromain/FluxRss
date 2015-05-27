@@ -140,7 +140,7 @@ public class FluxRssFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     private void Bind(List<FluxRss> listeFlux) {
-        this.fluxRssAdapter = new FluxRssAdapter(this.getActivity().getBaseContext(), listeFlux);
+        this.fluxRssAdapter = new FluxRssAdapter(this.getActivity(), listeFlux);
         this.listViewFluxRss.setAdapter(fluxRssAdapter);
     }
 

@@ -105,7 +105,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
     @Override
     public void onFeedParsed() {
         this.displayPodcasts();
-        this.itemRssAdapter.notifyDataSetChanged();
+       // this.itemRssAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -120,7 +120,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-       void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Uri uri);
     }
 
     private void loadItems() {
@@ -138,7 +138,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
         for (ItemRss itemRss : podcasts) {
             Log.i("testGETFRAGMENT?", itemRss.getTitre());
         }
-        Log.i("podcastSize", podcasts.size()+"");
+        Log.i("podcastSize", podcasts.size() + "");
         Bind(podcasts);
         //Intent intent = this.getIntent();
         //intent.putExtra("nbArticle", podcasts.size());
@@ -148,9 +148,11 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
     }
 
     private void Bind(List<ItemRss> itemsRss) {
-        this.itemRssAdapter = new ItemRssAdapter(this.getActivity().getBaseContext(), itemsRss);
-        Log.i("testGetCountAdapter",itemRssAdapter.getCount()+"");
-        this.listViewItemRss.setAdapter(itemRssAdapter);
+        if (this.getActivity() != null) {
+            this.itemRssAdapter = new ItemRssAdapter(this.getActivity().getBaseContext(), itemsRss);
+            Log.i("testGetCountAdapter", itemRssAdapter.getCount() + "");
+            this.listViewItemRss.setAdapter(itemRssAdapter);
+        }
     }
 
 

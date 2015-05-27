@@ -3,5 +3,6 @@
 <color name="colorFeedHunter">#ffd764</color>
 <color name="rssRed">#f44336</color>
 <color name="rssRedDark">#d32f2f</color>
+<color name="rssRedDarker">#ff20d318</color>
 
 </resources>

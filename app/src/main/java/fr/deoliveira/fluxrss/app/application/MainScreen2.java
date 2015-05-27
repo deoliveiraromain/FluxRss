@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.*;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -31,11 +32,20 @@ public class MainScreen2 extends AppCompatActivity implements FluxRssFragment.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Window window = getWindow();
-//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+           window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //            window.setStatusBarColor(getResources().getColor(R.color.rssRedDark));
+        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            Window w = getWindow();
+//            w.setFlags(
+//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//            w.setFlags(
+//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        }
         // Find our drawer view
         dlDrawer = (FragmentNavigationDrawer) findViewById(R.id.drawer_layout);
@@ -57,6 +67,7 @@ public class MainScreen2 extends AppCompatActivity implements FluxRssFragment.On
     @Override
     public void onFragmentInteraction(String url) {
         ItemRssFragment itemRssFragment = null;
+        Log.d("testItemRssCreation", "CreationEnCours");
         try {
             itemRssFragment = ItemRssFragment.newInstance(url);
         } catch (Exception e) {

@@ -30,7 +30,7 @@
               android:textColor="#fff"
               android:background="?android:attr/activatedBackgroundIndicator"
               android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                android:text="TESTTEXTVIEW"/>
+                android:text="FRAGMENT FLUX RSS"/>
 
     <ListView android:layout_height="fill_parent"
               android:layout_width="fill_parent"
