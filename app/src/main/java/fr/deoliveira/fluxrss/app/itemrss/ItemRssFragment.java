@@ -71,7 +71,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_item_rss, container, false);
-        listViewItemRss = (ListView) rootView.findViewById(android.R.id.list);
+        listViewItemRss = (ListView) rootView.findViewById(R.id.listItem);
         //listViewItemRss.setOnItemClickListener(this);
         loadItems();
         // Inflate the layout for this fragment

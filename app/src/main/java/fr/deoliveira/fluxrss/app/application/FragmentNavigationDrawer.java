@@ -30,8 +30,9 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     private View rootDrawerView;
 
     private ListView lvDrawer;
-    private ArrayAdapter<String> drawerAdapter;
-    private ArrayList<FragmentNavItem> drawerNavItems;
+    private ItemDrawerAdapter drawerAdapter;
+    private ArrayList<ItemDrawer> drawerNavItems;
+    private ArrayList<FragmentNavItem> drawerNavItemsFragments;
     private int drawerContainerRes;
 
     public FragmentNavigationDrawer(Context context, AttributeSet attrs, int defStyle) {
@@ -54,10 +55,12 @@ public class FragmentNavigationDrawer extends DrawerLayout {
          * */
 
         // Setup navigation items array
-        drawerNavItems = new ArrayList<FragmentNavigationDrawer.FragmentNavItem>();
+        drawerNavItemsFragments = new ArrayList<FragmentNavigationDrawer.FragmentNavItem>();
+        drawerNavItems = new ArrayList<>();
         // Set the adapter for the list view
-        drawerAdapter = new ArrayAdapter<String>(getActivity(), drawerItemRes,
-                new ArrayList<String>());
+        //drawerAdapter = new ArrayAdapter<String>(getActivity(), drawerItemRes,
+        //        new ArrayList<String>());
+
         this.drawerContainerRes = drawerContainerRes;
         // Setup drawer list view and related adapter
         lvDrawer = drawerListView;
@@ -71,17 +74,22 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         drawerToggle = setupDrawerToggle();
         setDrawerListener(drawerToggle);
         // Setup action buttons
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setLogo(R.drawable.rss25);
 
         //rootDrawerView = (LinearLayout)findViewById(R.id.rootDrawer);
         this.rootDrawerView=rootDrawerView;
     }
 
     // addNavItem("First", "First Fragment", FirstFragment.class)
-    public void addNavItem(String navTitle, String windowTitle, Class<? extends Fragment> fragmentClass) {
-        drawerAdapter.add(navTitle);
-        drawerNavItems.add(new FragmentNavItem(windowTitle, fragmentClass));
+    public void addNavItem(String navTitle,int icon, String windowTitle, Class<? extends Fragment> fragmentClass) {
+        drawerNavItems.add(new ItemDrawer(navTitle,icon));
+        drawerAdapter = new ItemDrawerAdapter(getActivity(),drawerNavItems);
+        lvDrawer.setAdapter(drawerAdapter);
+        //drawerAdapter.add(navTitle);
+        drawerNavItemsFragments.add(new FragmentNavItem(windowTitle, fragmentClass));
     }
 
     /**
@@ -90,7 +98,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     public void selectDrawerItem(int position) {
         // Create a new fragment and specify the planet to show based on
         // position
-        FragmentNavItem navItem = drawerNavItems.get(position);
+        FragmentNavItem navItem = drawerNavItemsFragments.get(position);
         Fragment fragment = null;
         try {
             fragment = navItem.getFragmentClass().newInstance();

@@ -16,12 +16,13 @@
                                            android:minHeight="?attr/actionBarSize"
                                            android:id="@+id/tool_bar" android:title="@string/app_name"
                                            android:background="@color/rssRed">
-            <Spinner
+            <!--<Spinner
                     android:id="@+id/spinner1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/toolbar_arrays"
-                    android:prompt="@string/toolbar_prompt"/>
+
+                    android:prompt="@string/toolbar_prompt"/>-->
 
         </android.support.v7.widget.Toolbar>
 
@@ -39,11 +40,17 @@
                   android:fitsSystemWindows="true"
                   android:id="@+id/rootDrawer"
                   android:layout_gravity="start"
-                  android:background="@color/rssRed" android:paddingTop="24dp">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                       android:src="@drawable/rssicon"/>
+                  android:background="@color/rssRed"
+            >
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"   >
+            <ImageView
+                       android:layout_width="80dp"
+                       android:layout_height="80dp"
+                       android:src="@drawable/rss25"/>
+           <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
             <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                      android:textSize="40sp"
                       android:text="@string/app_name"/>
         </LinearLayout>
         <ListView
@@ -53,7 +60,7 @@
                 android:choiceMode="singleChoice"
                 android:paddingTop="24dp"
                 android:divider="@android:color/transparent"
-                android:dividerHeight="0dp"
+                android:dividerHeight="0dp"  android:background="@android:color/white"
                 />
     </LinearLayout>
 </fr.deoliveira.fluxrss.app.application.FragmentNavigationDrawer>
