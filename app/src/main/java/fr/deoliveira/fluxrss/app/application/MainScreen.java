@@ -42,7 +42,7 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
         // Add nav items
         dlDrawer.addNavItem("Mes Flux Rss",R.drawable.list30, "First Fragment", FluxRssFragment.class);
         dlDrawer.addNavItem("Ajouter un Flux",R.drawable.plus25, "Second Fragment", AjoutFluxFragment.class);
-
+        //Comentaire que dans le master.
         // Select default
         if (savedInstanceState == null) {
             dlDrawer.selectDrawerItem(0);
