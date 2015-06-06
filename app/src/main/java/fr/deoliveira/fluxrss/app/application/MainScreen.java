@@ -20,7 +20,7 @@ import fr.deoliveira.fluxrss.app.itemrss.ItemRssFragment;
 /**
  * Created by Romain on 07/05/2015.
  */
-public class MainScreen2 extends AppCompatActivity implements FluxRssFragment.OnFluxRssInteractionListener,
+public class MainScreen extends AppCompatActivity implements FluxRssFragment.OnFluxRssInteractionListener,
 ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxInteractionListener {
 
     private FragmentNavigationDrawer dlDrawer;
