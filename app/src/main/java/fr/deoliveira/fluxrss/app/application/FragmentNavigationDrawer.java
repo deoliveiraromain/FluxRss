@@ -112,7 +112,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
+        fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).addToBackStack(null).commit();
 
         // Highlight the selected itemrss, update the title, and close the drawer
         lvDrawer.setItemChecked(position, true);
