@@ -43,6 +43,7 @@ public class ItemRssProvider implements ItemsRssProviderInterface {
                         // ItemRssFragment item = (ItemRssFragment) mListener;
                         //item.displayPodcasts();
                         if (mListener != null) {
+                            Log.d("AppelCallBack","AppelCallBack");
                             mListener.onFeedParsed();
                         }
                         //TODO : ici on appelle le callback pour display
@@ -95,9 +96,9 @@ public class ItemRssProvider implements ItemsRssProviderInterface {
 //        for (RSSItem itemrss : listeitems) {
 //            ItemRss podcast = new ItemRss(itemrss.getTitle(), itemrss.getDate(), itemrss.getLink().toString());
 //            itemsRss.add(podcast);
-        for (ItemRss itemRss : itemsRss) {
-            Log.i("testGET?", itemRss.getTitre());
-        }
+//        for (ItemRss itemRss : itemsRss) {
+//            Log.i("testGET?", itemRss.getTitre());
+//        }
 //        Log.i("testTailleListe","taille Liste ItemRss "+listeitems.size());
 //        Log.i("testTailleListe", "taille Liste ItemRss "+itemsRss.size());
         return itemsRss;

@@ -20,8 +20,8 @@ import fr.deoliveira.fluxrss.app.itemrss.ItemRssFragment;
 /**
  * Created by Romain on 07/05/2015.
  */
-public class MainScreen2 extends AppCompatActivity implements FluxRssFragment.OnFragmentInteractionListener,
-ItemRssFragment.OnFragmentInteractionListener,AjoutFluxFragment.OnFragmentInteractionListener {
+public class MainScreen2 extends AppCompatActivity implements FluxRssFragment.OnFluxRssInteractionListener,
+ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxInteractionListener {
 
     private FragmentNavigationDrawer dlDrawer;
 
@@ -47,30 +47,6 @@ ItemRssFragment.OnFragmentInteractionListener,AjoutFluxFragment.OnFragmentIntera
         if (savedInstanceState == null) {
             dlDrawer.selectDrawerItem(0);
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(String url) {
-        ItemRssFragment itemRssFragment = null;
-        Log.d("testItemRssCreation", "CreationEnCours");
-        try {
-            itemRssFragment = ItemRssFragment.newInstance(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.flContent, itemRssFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-        // and add the transaction to the back stack so the user can navigate back
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
 
@@ -116,4 +92,32 @@ ItemRssFragment.OnFragmentInteractionListener,AjoutFluxFragment.OnFragmentIntera
         dlDrawer.getDrawerToggle().onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onAjoutFluxInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onFluxRssInteraction(String url) {
+        ItemRssFragment itemRssFragment = null;
+        Log.d("testItemRssCreation", "CreationEnCours");
+        try {
+            itemRssFragment = ItemRssFragment.newInstance(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.flContent, itemRssFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        // and add the transaction to the back stack so the user can navigate back
+    }
+
+    @Override
+    public void onItemRssInteraction(Uri uri) {
+
+    }
 }

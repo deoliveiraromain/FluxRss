@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ItemRssFragment.OnFragmentInteractionListener} interface
+ * {@link fr.deoliveira.fluxrss.app.itemrss.ItemRssFragment.OnItemRssInteractionListener} interface
  * to handle interaction events.
  * Use the {@link ItemRssFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -38,7 +38,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
     private ListView listViewItemRss;
 
 
-    private OnFragmentInteractionListener mListener;
+    private OnItemRssInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -81,7 +81,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onItemRssInteraction(uri);
         }
     }
 
@@ -89,7 +89,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (OnItemRssInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -104,6 +104,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
 
     @Override
     public void onFeedParsed() {
+        Log.d("AppelCallBack","PassageCallBack");
         this.displayPodcasts();
        // this.itemRssAdapter.notifyDataSetChanged();
     }
@@ -118,9 +119,9 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnItemRssInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onItemRssInteraction(Uri uri);
     }
 
     private void loadItems() {
@@ -134,6 +135,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
     }
 
     public int displayPodcasts() {
+        Log.d("AppelCallBack","IciCallNack");
         List<ItemRss> podcasts = this.itemsRssProvider.getListItemsRss();
         for (ItemRss itemRss : podcasts) {
             Log.i("testGETFRAGMENT?", itemRss.getTitre());
@@ -149,9 +151,10 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
 
     private void Bind(List<ItemRss> itemsRss) {
         if (this.getActivity() != null) {
-            this.itemRssAdapter = new ItemRssAdapter(this.getActivity().getBaseContext(), itemsRss);
+            this.itemRssAdapter = new ItemRssAdapter(this.getActivity(), itemsRss);
             Log.i("testGetCountAdapter", itemRssAdapter.getCount() + "");
             this.listViewItemRss.setAdapter(itemRssAdapter);
+            //this.itemRssAdapter.notifyDataSetChanged();
         }
     }
 

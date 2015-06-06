@@ -36,7 +36,7 @@ public class FluxRssFragment extends Fragment implements AdapterView.OnItemClick
     private ListView listViewFluxRss;
 
 
-    private OnFragmentInteractionListener mListener;
+    private OnFluxRssInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -84,7 +84,7 @@ public class FluxRssFragment extends Fragment implements AdapterView.OnItemClick
     public void onButtonPressed(String url) {
         //TODO : ici qu'on gère un fluxrss cliqué dans la liste des podcasters., on envoie les infos nécessaire au changement de fragment
         if (mListener != null) {
-            mListener.onFragmentInteraction(url);
+            mListener.onFluxRssInteraction(url);
         }
     }
 
@@ -94,7 +94,7 @@ public class FluxRssFragment extends Fragment implements AdapterView.OnItemClick
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (OnFluxRssInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -125,9 +125,9 @@ public class FluxRssFragment extends Fragment implements AdapterView.OnItemClick
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnFluxRssInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(String url);
+        void onFluxRssInteraction(String url);
     }
 
 
