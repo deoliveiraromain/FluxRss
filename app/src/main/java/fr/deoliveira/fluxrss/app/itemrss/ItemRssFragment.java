@@ -75,7 +75,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
         //listViewItemRss.setOnItemClickListener(this);
         loadItems();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_item_rss, container, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

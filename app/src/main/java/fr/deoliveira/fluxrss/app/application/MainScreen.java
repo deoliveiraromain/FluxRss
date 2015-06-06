@@ -46,7 +46,7 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
 
         // Set the menu icon instead of the launcher icon.
         final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.rss25);
+        ab.setHomeAsUpIndicator(R.drawable.ic_drawer);
         ab.setDisplayHomeAsUpEnabled(true);
 
         // Find our drawer view
@@ -92,9 +92,10 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
             e.printStackTrace();
         }
 
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.flContent, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
@@ -158,11 +159,11 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
         }
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.flContent, itemRssFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
         // and add the transaction to the back stack so the user can navigate back
     }
 

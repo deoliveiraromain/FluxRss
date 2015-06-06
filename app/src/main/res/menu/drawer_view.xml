@@ -3,8 +3,9 @@
     <group android:checkableBehavior="single">
         <item
                 android:id="@+id/nav_first_fragment"
-                android:icon="@drawable/list30"
-                android:title="Mes Flux Rss" />
+                android:icon="@drawable/listing"
+                android:title="Mes Flux Rss"
+                 />
         <item
                 android:id="@+id/nav_second_fragment"
                 android:icon="@drawable/plus25"

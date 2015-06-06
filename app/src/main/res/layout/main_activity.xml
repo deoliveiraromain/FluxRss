@@ -4,18 +4,20 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+       >
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
         <!-- The ActionBar -->
         <android.support.v7.widget.Toolbar android:layout_width="match_parent" android:layout_height="wrap_content"
                                            android:minHeight="?attr/actionBarSize"
+                                           app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                                            android:id="@+id/tool_bar" android:title="@string/app_name"
-                                           android:background="@color/rssRed">
+                                           android:background="@color/rssRed"  >
             <!--<Spinner
                     android:id="@+id/spinner1"
                     android:layout_width="match_parent"
