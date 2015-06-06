@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NokActionBar">
     <!--<itemrss name="android:windowNoTitle">true</itemrss>-->
     <!--We will be using the toolbar so no need to show ActionBar-->
     <!--<itemrss name="android:windowActionBar">false</itemrss>-->
     <!--<itemrss name="windowActionBar">false</itemrss>
     <itemrss name="windowNoTitle">true</itemrss>-->
     <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
-    <item name="colorPrimary">@color/rssRed</item>
+    <item name="android:colorPrimary">@color/rssRed</item>
+    <item name="colorPrimaryDark">@color/rssRedDark</item>
     <item name="android:colorPrimaryDark">@color/rssRedDark</item>
         <!--  Soit on a  la statuts bar transparent soit une color-->
     <item name="android:windowTranslucentStatus">true</item>
