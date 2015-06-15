@@ -104,9 +104,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
 
     @Override
     public void onFeedParsed() {
-        Log.d("AppelCallBack","PassageCallBack");
         this.displayPodcasts();
-       // this.itemRssAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -135,16 +133,8 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
     }
 
     public int displayPodcasts() {
-        Log.d("AppelCallBack","IciCallNack");
         List<ItemRss> podcasts = this.itemsRssProvider.getListItemsRss();
-        for (ItemRss itemRss : podcasts) {
-            Log.i("testGETFRAGMENT?", itemRss.getTitre());
-        }
-        Log.i("podcastSize", podcasts.size() + "");
         Bind(podcasts);
-        //Intent intent = this.getIntent();
-        //intent.putExtra("nbArticle", podcasts.size());
-        //setResult(Activity.RESULT_OK, intent);
         return podcasts.size();
 
     }
@@ -152,9 +142,7 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
     private void Bind(List<ItemRss> itemsRss) {
         if (this.getActivity() != null) {
             this.itemRssAdapter = new ItemRssAdapter(this.getActivity(), itemsRss);
-            Log.i("testGetCountAdapter", itemRssAdapter.getCount() + "");
             this.listViewItemRss.setAdapter(itemRssAdapter);
-            //this.itemRssAdapter.notifyDataSetChanged();
         }
     }
 

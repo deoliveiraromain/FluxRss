@@ -1,24 +1,21 @@
 package fr.deoliveira.fluxrss.app.itemrss;
 
-/**
- * Created with IntelliJ IDEA.
- * User: fd
- * Date: 28/11/13
- * Time: 14:49
- */
 public class ItemRss {
     public String titre;
     public String resume;
     public String lien;
+    public String date;
 
 
     public ItemRss() {
+
     }
 
-    public ItemRss(String titre, String resume, String lien) {
+    public ItemRss(String titre, String resume, String lien,String date) {
         setTitre(titre);
         setResume(resume);
         setLien(lien);
+        setDate(date);
     }
 
     public String getTitre() {
@@ -43,6 +40,14 @@ public class ItemRss {
 
     public void setLien(String lien) {
         this.lien = lien;
+    }
+    public String getDate()
+     {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
 }

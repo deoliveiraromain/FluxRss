@@ -9,14 +9,21 @@
               android:layout_height="wrap_content"
               android:padding="2dp"
               android:gravity="center_vertical"
-              android:textSize="16dp" >
+              android:textSize="16dp">
     </TextView>
     <TextView android:id="@+id/resume"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:padding="5dp"
               android:gravity="center_vertical"
-              android:textSize="10dp" >
+              android:textSize="10dp">
+    </TextView>
+    <TextView android:id="@+id/date"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:padding="5dp"
+              android:gravity="center_vertical"
+              android:textSize="10dp">
     </TextView>
     <TextView android:id="@+id/lien"
               android:layout_width="fill_parent"

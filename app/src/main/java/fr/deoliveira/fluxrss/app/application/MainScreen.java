@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,10 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.*;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import fr.deoliveira.fluxrss.app.R;
-import fr.deoliveira.fluxrss.app.ajoutmanuel.AjoutFluxFragment;
+import fr.deoliveira.fluxrss.app.application.AjoutFluxFragment;
 import fr.deoliveira.fluxrss.app.fluxrss.FluxRssFragment;
 import fr.deoliveira.fluxrss.app.itemrss.ItemRssFragment;
 
@@ -28,7 +25,6 @@ import fr.deoliveira.fluxrss.app.itemrss.ItemRssFragment;
 public class MainScreen extends AppCompatActivity implements FluxRssFragment.OnFluxRssInteractionListener,
 ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxInteractionListener {
 
-    //private FragmentNavigationDrawer dlDrawer;
     private DrawerLayout dlDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -157,14 +153,11 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         // Insert the fragment by replacing any existing fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.flContent, itemRssFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-
-        // and add the transaction to the back stack so the user can navigate back
     }
 
     @Override

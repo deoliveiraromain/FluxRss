@@ -1,6 +1,5 @@
 package fr.deoliveira.fluxrss.app.fluxrss;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,26 +10,11 @@ import fr.deoliveira.fluxrss.app.R;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Administrator
- * Date: 19/12/13
- * Time: 00:49
- * To change this template use File | Settings | File Templates.
- */
 public class FluxRssAdapter extends ArrayAdapter<FluxRss> {
 
     private final List<FluxRss> listFluxRss;
-    private Activity activity;
     private Context context;
 
-//    public FluxRssAdapter(ListPodcastersFeedActivity rssFeedActivity, List<FluxRss> listFluxRss) {
-//
-//        super(rssFeedActivity, R.layout.itemfluxrss, listFluxRss);
-//        this.listFluxRss = listFluxRss;
-//        this.activity = rssFeedActivity;
-//
-//    }
 
     public FluxRssAdapter(Context context, List<FluxRss> listeFluxRss) {
         super(context, R.layout.itemfluxrss, listeFluxRss);
@@ -47,9 +31,8 @@ public class FluxRssAdapter extends ArrayAdapter<FluxRss> {
 
         conView = convertView;
         if (convertView == null) {
-            //LayoutInflater layoutInflater = activity.getLayoutInflater();
             LayoutInflater layoutInflater = LayoutInflater.from(context);
-            conView = layoutInflater.inflate(R.layout.itemfluxrss, null); //true ?
+            conView = layoutInflater.inflate(R.layout.itemfluxrss, null);
             viewHelper = new ViewHelper();
             viewHelper.auteur = (TextView) conView.findViewById(R.id.auteur);
             viewHelper.nbPodcasts = (TextView) conView.findViewById(R.id.labelArticlesCount);
@@ -60,7 +43,6 @@ public class FluxRssAdapter extends ArrayAdapter<FluxRss> {
         }
 
         FluxRss podcaster = (FluxRss) getItem(position);
-      //  FluxRss podcaster = listFluxRss.get(position);
         viewHelper.auteur.setText(podcaster.auteur);
         viewHelper.nbPodcasts.setText(podcaster.nbArticles);
 
