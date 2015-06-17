@@ -36,7 +36,6 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-
         // Find our drawer view
         dlDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 

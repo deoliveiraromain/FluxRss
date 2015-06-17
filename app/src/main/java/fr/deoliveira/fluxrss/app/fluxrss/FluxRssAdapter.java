@@ -43,8 +43,8 @@ public class FluxRssAdapter extends ArrayAdapter<FluxRss> {
         }
 
         FluxRss podcaster = (FluxRss) getItem(position);
-        viewHelper.auteur.setText(podcaster.auteur);
-        viewHelper.nbPodcasts.setText(podcaster.nbArticles);
+        viewHelper.auteur.setText(podcaster.getAuteur());
+       // viewHelper.nbPodcasts.setText(podcaster.nbArticles);
 
 
         return conView;

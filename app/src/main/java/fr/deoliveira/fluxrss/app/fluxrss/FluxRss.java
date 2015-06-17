@@ -10,16 +10,16 @@ package fr.deoliveira.fluxrss.app.fluxrss;
  */
 public class FluxRss {
 
-    public String auteur;
-    public String nbArticles;
-    public String url;
+    private long id;
+    private String auteur;
+    private TypeInfo type;
+    private String url;
 
-    public FluxRss(String auteur, String url) {
-        setAuteur(auteur);
-        setNbArticles("0 article");
-        setUrl(url);
-
-
+    public FluxRss(long id, String auteur, String url,TypeInfo type) {
+        this.id=id;
+        this.auteur=auteur;
+        this.url=url;
+        this.type=type;
     }
 
     public String getAuteur() {
@@ -34,16 +34,16 @@ public class FluxRss {
         this.url = url;
     }
 
-    public String getnbPodcasts() {
-        return nbArticles;
-    }
-
     public String getUrl() {
         return url;
     }
 
-    public void setNbArticles(String nbArticles) {
-        this.nbArticles = nbArticles;
+    public TypeInfo getType() {
+        return this.type;
+    }
+
+    public void setType(TypeInfo type) {
+        this.type = type;
     }
 
 }
