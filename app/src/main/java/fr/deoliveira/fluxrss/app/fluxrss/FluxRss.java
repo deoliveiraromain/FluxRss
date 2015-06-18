@@ -22,6 +22,12 @@ public class FluxRss {
         this.type=type;
     }
 
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
     public String getAuteur() {
         return auteur;
     }
@@ -37,7 +43,6 @@ public class FluxRss {
     public String getUrl() {
         return url;
     }
-
     public TypeInfo getType() {
         return this.type;
     }
