@@ -1,5 +1,6 @@
 package fr.deoliveira.fluxrss.app.application;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         // Setup drawer view
         setupDrawerContent(nvDrawer);
+
     }
 
     private void setupDrawerContent(NavigationView navigationView) {

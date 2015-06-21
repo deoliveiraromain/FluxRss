@@ -21,4 +21,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(FluxRssDao.TABLE_DROP);
         onCreate(db);
     }
+
+
 }

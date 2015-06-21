@@ -1,5 +1,7 @@
 package fr.deoliveira.fluxrss.app.fluxrss;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,25 +18,28 @@ public class FluxRssProvider implements FluxRssProviderInterface {
 
     private static List<FluxRss> listeFluxRss = initListFluxRss();
 
+    private FluxRssDao fluxRssDao;
+
     public FluxRssProvider() {
-        //this.url=URL;
+        //this.url=URL;    FluxRssDao  dao = new FluxRssDao(v.getContext());
         this.initListFluxRss();
     }
 
     private static List<FluxRss> initListFluxRss() {
         if (listeFluxRss ==null) {
             listeFluxRss = new ArrayList<FluxRss>();
-            FluxRss fluxRss;
-            fluxRss = new FluxRss("Les cast Codeurs", "http://lescastcodeurs.libsyn.com/rss");
-            listeFluxRss.add(fluxRss);
-            fluxRss = new FluxRss("info Q", "http://www.infoq.com/fr/feed?token=E2kbOTr4TsNqNc17hN5zFoxD0rHadgcC");
-            listeFluxRss.add(fluxRss);
-            fluxRss = new FluxRss("Rtl les grosses têtes", "http://www.rtl.fr/podcast/les-grosses-tetes.xml");
-            listeFluxRss.add(fluxRss);
-            fluxRss = new FluxRss("Europe 1", "http://europe1.fr.feedsportal.com/c/32376/f/546038/index.rss");
-            listeFluxRss.add(fluxRss);
-            fluxRss = new FluxRss("Le Monde", "http://rss.lemonde.fr/c/205/f/3050/index.rss");
-            listeFluxRss.add(fluxRss);
+            //FIXME
+//            FluxRss fluxRss;
+//            fluxRss = new FluxRss("Les cast Codeurs", "http://lescastcodeurs.libsyn.com/rss");
+//            listeFluxRss.add(fluxRss);
+//            fluxRss = new FluxRss("info Q", "http://www.infoq.com/fr/feed?token=E2kbOTr4TsNqNc17hN5zFoxD0rHadgcC");
+//            listeFluxRss.add(fluxRss);
+//            fluxRss = new FluxRss("Rtl les grosses têtes", "http://www.rtl.fr/podcast/les-grosses-tetes.xml");
+//            listeFluxRss.add(fluxRss);
+//            fluxRss = new FluxRss("Europe 1", "http://europe1.fr.feedsportal.com/c/32376/f/546038/index.rss");
+//            listeFluxRss.add(fluxRss);
+//            fluxRss = new FluxRss("Le Monde", "http://rss.lemonde.fr/c/205/f/3050/index.rss");
+//            listeFluxRss.add(fluxRss);
         }
         return listeFluxRss;
 
@@ -52,9 +57,8 @@ public class FluxRssProvider implements FluxRssProviderInterface {
 
     @Override
     public List<FluxRss> getListFluxRss() {
-      //  List<FluxRss> listeFluxRss = new ArrayList<FluxRss>();
-      //  FluxRss podcaster;
-
+        fluxRssDao.open();
+        listeFluxRss = fluxRssDao.getAllFlux();
         return listeFluxRss;
     }
 
