@@ -17,7 +17,7 @@ public abstract class DAOBase {
     public DAOBase(Context pContext) {
         this.mHandler = new DatabaseHandler(pContext, NOM, null, VERSION);
         //Voir si on met ici la vérif de ifEmpty -> populate, car on populate pas forcément toutes les classes
-        //Auquel cas on remet le nom table en param
+        //Auquel cas on remet le nom table en param et isEmpty en private
     }
 
     public SQLiteDatabase open() {
