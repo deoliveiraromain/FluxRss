@@ -23,7 +23,9 @@ public class FluxRssDao extends DAOBase {
 
     public FluxRssDao(Context pContext) {
         super(pContext);
-       //TODO : vérifier si vide
+        if (this.isEmpty(TABLE_NAME)) {
+            this.populateIfEmpty();
+        }
     }
 
     public long ajouter(FluxRss f) {
@@ -79,27 +81,10 @@ public class FluxRssDao extends DAOBase {
         return flux;
     }
 
-    protected  void populateIfEmpty(){
-
+    protected void populateIfEmpty() {
+        //TODO : a implémenter
     }
 
-
-    public boolean isEmpty() {
-        boolean res=false;
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT COUNT(*)").append(" FROM ")
-                .append(TABLE_NAME);
-        String query = sql.toString();
-        Cursor c = mDb.rawQuery(query,null);
-        if(c!=null){
-            c.moveToFirst();
-            long id = c.getInt(0);
-            if(id==0){
-                res=true;
-            }
-        }
-        return res;
-    }
 
     public FluxRss selectionnerWithAuteur(String auteur) {
         FluxRss flux = null;
