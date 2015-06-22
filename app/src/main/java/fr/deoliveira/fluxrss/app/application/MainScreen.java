@@ -1,7 +1,9 @@
 package fr.deoliveira.fluxrss.app.application;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -29,7 +31,8 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
     private DrawerLayout dlDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
-
+    //TODO: BROADCAST RECEIVER quand on est sur un fragment de ItemRss pour parser régulièrement et afficher une notif quand nouveaux items
+    //TODO : Mettre les requetes dans un HANDLER OU ASYNC (mettre ca dans le Provider ?)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,5 +167,13 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
     @Override
     public void onItemRssInteraction(Uri uri) {
 
+    }
+
+
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null &&
+                cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 }

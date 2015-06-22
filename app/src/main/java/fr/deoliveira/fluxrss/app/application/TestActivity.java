@@ -2,10 +2,6 @@ package fr.deoliveira.fluxrss.app.application;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +10,6 @@ import fr.deoliveira.fluxrss.app.fluxrss.FluxRss;
 import fr.deoliveira.fluxrss.app.fluxrss.FluxRssDao;
 import fr.deoliveira.fluxrss.app.fluxrss.TypeInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
