@@ -32,6 +32,7 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     //TODO: BROADCAST RECEIVER quand on est sur un fragment de ItemRss pour parser régulièrement et afficher une notif quand nouveaux items
+    //TODO: BROADCAST RECEIVER quand on perd la NETWORK CO
     //TODO : Mettre les requetes dans un HANDLER OU ASYNC (mettre ca dans le Provider ?)
     @Override
     protected void onCreate(Bundle savedInstanceState) {

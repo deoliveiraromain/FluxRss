@@ -23,12 +23,15 @@ public class FluxRssDao extends DAOBase {
 
     public FluxRssDao(Context pContext) {
         super(pContext);
+        this.open();
         if (this.isEmpty(TABLE_NAME)) {
             this.populateIfEmpty();
         }
+        this.close();
     }
 
     public long ajouter(FluxRss f) {
+        this.open();
         long id = 0;
         try {
             ContentValues value = new ContentValues();
@@ -43,14 +46,18 @@ public class FluxRssDao extends DAOBase {
         } finally {
             mDb.endTransaction();
         }
+        this.close();
         return id;
     }
 
     public void supprimer(long id) {
+        this.open();
         mDb.delete(TABLE_NAME, KEY + " = ?", new String[]{String.valueOf(id)});
+        this.close();
     }
 
     public void modifier(FluxRss f) {
+        this.open();
         try {
             ContentValues value = new ContentValues();
             value.put(FluxRssDao.AUTEUR, f.getAuteur());
@@ -64,9 +71,11 @@ public class FluxRssDao extends DAOBase {
         } finally {
             mDb.endTransaction();
         }
+        this.close();
     }
 
     public FluxRss selectionner(long id) {
+        this.open();
         FluxRss flux = null;
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(KEY + ",").append(AUTEUR + ",").append(LIEN + ", ").append(TYPE).append(" FROM ")
@@ -76,8 +85,9 @@ public class FluxRssDao extends DAOBase {
         if (c != null) {
             c.moveToFirst();
             flux = new FluxRss(c.getLong(0), c.getString(1), c.getString(2), c.getString(3));
+            c.close();
         }
-        c.close();
+        this.close();
         return flux;
     }
 
@@ -87,6 +97,7 @@ public class FluxRssDao extends DAOBase {
 
 
     public FluxRss selectionnerWithAuteur(String auteur) {
+        this.open();
         FluxRss flux = null;
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(KEY + ",").append(AUTEUR + ",").append(LIEN + ", ").append(TYPE).append(" FROM ").append(TABLE_NAME).append(" WHERE ").append(AUTEUR).append(" = ?");
@@ -95,13 +106,15 @@ public class FluxRssDao extends DAOBase {
         if (c != null) {
             c.moveToFirst();
             flux = new FluxRss(c.getLong(0), c.getString(1), c.getString(2), c.getString(3));
+            c.close();
         }
-        c.close();
+        this.close();
         return flux;
 
     }
 
     public List<FluxRss> getAllFlux() {
+        this.open();
         List<FluxRss> listeFlux = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ").append(KEY + ",").append(AUTEUR + ",").append(LIEN + ", ").append(TYPE).append(" FROM ")
@@ -112,8 +125,9 @@ public class FluxRssDao extends DAOBase {
             while (c.moveToNext()) {
                 listeFlux.add(new FluxRss(c.getLong(0), c.getString(1), c.getString(2), c.getString(3)));
             }
+            c.close();
         }
-        c.close();
+        this.close();
         return listeFlux;
     }
 

@@ -57,7 +57,6 @@ public class FluxRssProvider implements FluxRssProviderInterface {
 
     @Override
     public List<FluxRss> getListFluxRss() {
-        fluxRssDao.open();
         listeFluxRss = fluxRssDao.getAllFlux();
         return listeFluxRss;
     }

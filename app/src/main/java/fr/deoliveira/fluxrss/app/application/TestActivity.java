@@ -32,10 +32,8 @@ public class TestActivity extends Activity {
             @Override
             public void onClick(View v) {
                 FluxRssDao dao = new FluxRssDao(v.getContext());
-                dao.open();
                 FluxRss newFlux = new FluxRss("google", "http://www.google.fr", TypeInfo.INTERNATIONAL);
                 long id = dao.ajouter(newFlux);
-                dao.close();
                 Log.d("testInsert", id + "");
             }
         });
@@ -44,7 +42,6 @@ public class TestActivity extends Activity {
             @Override
             public void onClick(View v) {
                 FluxRssDao dao = new FluxRssDao(v.getContext());
-                dao.open();
                 FluxRss flux = dao.selectionnerWithAuteur("google");
                 Log.d("testUpdateAvant", "" + flux.getAuteur() + "");
                 flux.setUrl("http://wwww.yahoo.fr");
@@ -61,7 +58,6 @@ public class TestActivity extends Activity {
             @Override
             public void onClick(View v) {
                 FluxRssDao dao = new FluxRssDao(v.getContext());
-                dao.open();
                 List<FluxRss> listeflux = dao.getAllFlux();
                 for (FluxRss flux : listeflux) {
                     Log.d("testGetAll", "" + flux.getAuteur() + "");

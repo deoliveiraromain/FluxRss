@@ -12,14 +12,25 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity android:name=".application.MainScreen" >
-        </activity>
-
-        <activity android:name=".application.TestActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".application.TestActivity" >
+
+        </activity>
+
+
+        <receiver
+                android:name=".application.ConnectivityManager"
+                android:label="NetworkConnection"
+                android:exported = "false" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
