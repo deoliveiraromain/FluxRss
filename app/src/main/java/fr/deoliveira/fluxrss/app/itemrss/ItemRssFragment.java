@@ -14,22 +14,11 @@ import fr.deoliveira.fluxrss.app.R;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link fr.deoliveira.fluxrss.app.itemrss.ItemRssFragment.OnItemRssInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ItemRssFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedParsed {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_URL = "url";
 
-    // TODO: Rename and change types of parameters
 
     private int position;
     private String url;
@@ -40,14 +29,6 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
 
     private OnItemRssInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param url the url to parse.
-     * @return A new instance of fragment ItemRssFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ItemRssFragment newInstance(String url) {
         ItemRssFragment fragment = new ItemRssFragment();
         Bundle args = new Bundle();
@@ -72,13 +53,10 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_item_rss, container, false);
         listViewItemRss = (ListView) rootView.findViewById(R.id.listItem);
-        //listViewItemRss.setOnItemClickListener(this);
         loadItems();
-        // Inflate the layout for this fragment
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onItemRssInteraction(uri);
@@ -107,27 +85,11 @@ public class ItemRssFragment extends Fragment implements ItemRssProvider.OnFeedP
         this.displayPodcasts();
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnItemRssInteractionListener {
-        // TODO: Update argument type and name
         void onItemRssInteraction(Uri uri);
     }
 
     private void loadItems() {
-//        if ((url == null) || url.trim().equals("")) {
-//            return 0;
-//        }
-        //On init le provider avec l'url seulement la liste items est renvoyée.
-        // ItemsRssProviderInterface podcastProviderInterface = new ItemRssProvider(url);
         this.itemsRssProvider = new ItemRssProvider(url, this);
         this.itemsRssProvider.parseUrl();
     }

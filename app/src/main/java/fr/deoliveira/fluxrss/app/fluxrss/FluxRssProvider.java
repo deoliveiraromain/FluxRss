@@ -1,32 +1,28 @@
 package fr.deoliveira.fluxrss.app.fluxrss;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Administrator
- * Date: 19/12/13
- * Time: 00:00
- * To change this template use File | Settings | File Templates.
- */
 public class FluxRssProvider implements FluxRssProviderInterface {
 
-    private String url="";
+    private String url = "";
+    private Context context;
 
     private static List<FluxRss> listeFluxRss = initListFluxRss();
 
     private FluxRssDao fluxRssDao;
 
-    public FluxRssProvider() {
-        //this.url=URL;    FluxRssDao  dao = new FluxRssDao(v.getContext());
+    public FluxRssProvider(Context context) {
+        this.context = context;
+        this.fluxRssDao= new FluxRssDao(context);
         this.initListFluxRss();
     }
 
     private static List<FluxRss> initListFluxRss() {
-        if (listeFluxRss ==null) {
+        if (listeFluxRss == null) {
             listeFluxRss = new ArrayList<FluxRss>();
             //FIXME
 //            FluxRss fluxRss;
@@ -59,10 +55,6 @@ public class FluxRssProvider implements FluxRssProviderInterface {
     public List<FluxRss> getListFluxRss() {
         listeFluxRss = fluxRssDao.getAllFlux();
         return listeFluxRss;
-    }
-
-    public static int getNbFluxRss(){
-        return listeFluxRss.size();
     }
 
 
