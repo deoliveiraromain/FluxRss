@@ -13,6 +13,7 @@ public class ConnectivityManager extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("CO_LOST", "CONNECTION LOST");
+        //TODO : en faire une notification
         Toast toast = Toast.makeText(context, "Attention : La connexion a changée."
                 , Toast.LENGTH_LONG);
         toast.show();

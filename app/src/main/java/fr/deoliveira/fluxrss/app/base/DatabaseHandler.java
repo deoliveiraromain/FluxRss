@@ -13,13 +13,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(FluxRssDao.TABLE_CREATE);
+        for (DatabaseTables dbTable : DatabaseTables.values()) {
+            db.execSQL(dbTable.getCreate());
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(FluxRssDao.TABLE_DROP);
-        onCreate(db);
+        for (DatabaseTables dbTable : DatabaseTables.values()) {
+            db.execSQL(dbTable.getDrop());
+            onCreate(db);
+        }
     }
 
 
