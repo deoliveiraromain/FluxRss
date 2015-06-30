@@ -19,14 +19,14 @@ public class FluxRssDao extends DAOBase {
     private static final String LIEN = "url";
     private static final String TYPE = "type";
 
-    public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " + AUTEUR + " TEXT, " + LIEN + " TEXT, " + TYPE + " TEXT);";
-    public static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
+    private static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " + AUTEUR + " TEXT, " + LIEN + " TEXT, " + TYPE + " TEXT);";
+    private static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
 
 
     public FluxRssDao(Context pContext) {
-        super(pContext);
+        super(pContext,TABLE_NAME,TABLE_CREATE,TABLE_DROP);
         this.open();
-        if (this.isEmpty(TABLE_NAME)) {
+        if (this.isEmpty()) {
             this.populateIfEmpty();
         }
         this.close();

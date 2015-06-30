@@ -4,18 +4,31 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class DAOBase {
 
     protected final static int VERSION = 1;
     // Le nom du fichier qui représente ma base
     protected final static String NOM = "FluxRssDatabase.db";
-    protected final static String NOMnoDB = "FluxRssDatabase";
+    //protected final static String NOMnoDB = "FluxRssDatabase";
 
     protected SQLiteDatabase mDb = null;
     protected DatabaseHandler mHandler = null;
 
-    public DAOBase(Context pContext) {
+    public static final List<DAOBase> LISTE_TABLES = new ArrayList<>();
+
+    private String nomTable;
+    private String tableCreate;
+    private String tableDrop;
+
+    public DAOBase(Context pContext, String nomTable, String tableCreate, String tableDrop) {
         this.mHandler = new DatabaseHandler(pContext, NOM, null, VERSION);
+        this.tableCreate = tableCreate;
+        this.nomTable = nomTable;
+        this.tableDrop = tableDrop;
+        LISTE_TABLES.add(this);
         //Voir si on met ici la vérif de ifEmpty -> populate, car on populate pas forcément toutes les classes
         //Auquel cas on remet le nom table en param et isEmpty en private
     }
@@ -26,11 +39,11 @@ public abstract class DAOBase {
         return mDb;
     }
 
-    protected boolean isEmpty(String tableName) {
+    protected boolean isEmpty() {
         boolean res = false;
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT COUNT(*)").append(" FROM ")
-                .append(tableName);
+                .append(nomTable);
         String query = sql.toString();
         Cursor c = mDb.rawQuery(query, null);
         if (c != null) {
@@ -51,5 +64,18 @@ public abstract class DAOBase {
 
     public SQLiteDatabase getDb() {
         return mDb;
+    }
+
+
+    public String getNomTable() {
+        return nomTable;
+    }
+
+    public String getTableCreate() {
+        return tableCreate;
+    }
+
+    public String getTableDrop() {
+        return tableDrop;
     }
 }
