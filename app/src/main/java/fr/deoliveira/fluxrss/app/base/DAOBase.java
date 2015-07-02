@@ -19,9 +19,9 @@ public abstract class DAOBase {
 
     public static final List<DAOBase> LISTE_TABLES = new ArrayList<>();
 
-    private String nomTable;
-    private String tableCreate;
-    private String tableDrop;
+    protected final String nomTable;
+    protected final String tableCreate;
+    protected final String tableDrop;
 
     public DAOBase(Context pContext, String nomTable, String tableCreate, String tableDrop) {
         this.mHandler = new DatabaseHandler(pContext, NOM, null, VERSION);
