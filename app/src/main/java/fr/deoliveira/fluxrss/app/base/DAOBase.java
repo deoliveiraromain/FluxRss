@@ -12,13 +12,13 @@ public abstract class DAOBase {
     protected final static int VERSION = 1;
     // Le nom du fichier qui représente ma base
     protected final static String NOM = "FluxRssDatabase.db";
-    //protected final static String NOMnoDB = "FluxRssDatabase";
 
     protected SQLiteDatabase mDb = null;
     protected DatabaseHandler mHandler = null;
 
     public static final List<DAOBase> LISTE_TABLES = new ArrayList<>();
 
+    //Ces 3 chaines dépendent de l'instance du DAO fille, donc pas de static
     protected final String nomTable;
     protected final String tableCreate;
     protected final String tableDrop;

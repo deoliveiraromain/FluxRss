@@ -23,7 +23,9 @@ public class FluxRss {
     }
 
     public FluxRss( String auteur, String url,TypeInfo type) {
-        this(0,auteur,url,type);
+        this.auteur=auteur;
+        this.url=url;
+        this.type=type;
     }
 
     public FluxRss( long id, String auteur, String url,String type) {

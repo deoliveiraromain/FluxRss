@@ -26,11 +26,12 @@ import fr.deoliveira.fluxrss.app.itemrss.ItemRssFragment;
  * Created by Romain on 07/05/2015.
  */
 public class MainScreen extends AppCompatActivity implements FluxRssFragment.OnFluxRssInteractionListener,
-ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxInteractionListener {
+        ItemRssFragment.OnItemRssInteractionListener, AjoutFluxFragment.OnAjoutFluxInteractionListener {
 
     private DrawerLayout dlDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
+
     //TODO: BROADCAST RECEIVER quand on est sur un fragment de ItemRss pour parser régulièrement et afficher une notif quand nouveaux items
     //TODO: BROADCAST RECEIVER quand on perd la NETWORK CO
     //TODO : Mettre les requetes dans un HANDLER OU ASYNC (mettre ca dans le Provider ?)
@@ -73,12 +74,19 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
         Fragment fragment = null;
 
         Class fragmentClass;
-        switch(menuItem.getItemId()) {
-            case R.id.nav_first_fragment:
+        String typeInfos;
+
+
+        switch (menuItem.getItemId()) {
+            case R.id.nav_flux:
                 fragmentClass = FluxRssFragment.class;
                 break;
-            case R.id.nav_second_fragment:
+            case R.id.nav_ajout:
                 fragmentClass = AjoutFluxFragment.class;
+                break;
+            case R.id.nav_settings:
+                fragmentClass = SettingsFragment.class;
+                //TODO : ici implémenter le callBack dans ce cas de fragment!
                 break;
 //            case R.id.nav_third_fragment:
 //                fragmentClass = ThirdFragment.class;
@@ -89,6 +97,11 @@ ItemRssFragment.OnItemRssInteractionListener,AjoutFluxFragment.OnAjoutFluxIntera
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
+//            if (fragment instanceof FluxRssFragment) {
+//                Bundle args = new Bundle();
+//                args.putString(FluxRssFragment.ARG_PARAM_TYPE, "");
+//                fragment.setArguments(args);
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -24,7 +24,7 @@ public class FluxRssDao extends DAOBase {
 
 
     public FluxRssDao(Context pContext) {
-        super(pContext,TABLE_NAME,TABLE_CREATE,TABLE_DROP);
+        super(pContext, TABLE_NAME, TABLE_CREATE, TABLE_DROP);
         this.open();
         if (this.isEmpty()) {
             this.populateIfEmpty();
@@ -93,8 +93,19 @@ public class FluxRssDao extends DAOBase {
         return flux;
     }
 
+    @Override
     protected void populateIfEmpty() {
-        //TODO : a implémenter
+        FluxRss fluxRss;
+        fluxRss = new FluxRss("Les cast Codeurs", "http://lescastcodeurs.libsyn.com/rss",TypeInfo.TECHNOLOGIES);
+        this.ajouter(fluxRss);
+        fluxRss = new FluxRss("info Q", "http://www.infoq.com/fr/feed?token=E2kbOTr4TsNqNc17hN5zFoxD0rHadgcC",TypeInfo.INTERNATIONAL);
+        this.ajouter(fluxRss);
+        fluxRss = new FluxRss("Rtl les grosses têtes", "http://www.rtl.fr/podcast/les-grosses-tetes.xml",TypeInfo.UNE);
+        this.ajouter(fluxRss);
+        fluxRss = new FluxRss("Europe 1", "http://europe1.fr.feedsportal.com/c/32376/f/546038/index.rss",TypeInfo.UNE);
+        this.ajouter(fluxRss);
+        fluxRss = new FluxRss("Le Monde", "http://rss.lemonde.fr/c/205/f/3050/index.rss",TypeInfo.UNE);
+        this.ajouter(fluxRss);
     }
 
 

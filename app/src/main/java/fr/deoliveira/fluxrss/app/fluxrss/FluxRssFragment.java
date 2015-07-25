@@ -21,6 +21,10 @@ public class FluxRssFragment extends Fragment implements AdapterView.OnItemClick
     private String mParam1;
     private String mParam2;
 
+    public static final String ARG_PARAM_TYPE = "typeInfo";
+
+    private TypeInfo type;
+
     private ArrayAdapter<FluxRss> fluxRssAdapter;
     private ListView listViewFluxRss;
     private FluxRssProviderInterface fluxRssProvider;
@@ -46,6 +50,8 @@ public class FluxRssFragment extends Fragment implements AdapterView.OnItemClick
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+//            String typeStr = getArguments().getString(ARG_PARAM_TYPE);
+//            type=TypeInfo.valueOf(typeStr);
         }
     }
 

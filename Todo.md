@@ -13,3 +13,6 @@
 - [ ] Visualisation améliorée des items.
 - [ ] Ajouter des sources, et leur type.
 - [ ] Mettre les types d'actu dans le drawerLayout et récupérer et parser les Flux du même type pour affichage
+- [ ] Mettre une async task pour les activités de BDD
+- [ ] Broadcast receiver pour notifier les nouveaux Flux ?
+- [ ] Changer la cinétique globale: l'utilisateur choisit un type, et cela parse tous les FLUXRSS de ce type et les affiches
