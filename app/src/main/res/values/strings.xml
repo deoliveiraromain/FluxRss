@@ -35,9 +35,25 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+<!--Refonte -->
+    <string name="navigation_drawer_open">Drawer Open</string>
+    <string name="navigation_drawer_close">Drawer Closed</string>
 
+    <string name="settings">Paramètres</string>
+    <string name="addFlux">Ajouter un Flux</string>
+    <string name="myflux">Mes Flux</string>
+    <string name="top_cat">A la une</string>
+    <string name="eco_cat">Economie</string>
+    <string name="sport_cat">Sport</string>
+    <string name="inter_cat">International</string>
+    <string name="techno_cat">Technologies</string>
+    <string name="cult_cat">Culture</string>
+    <string name="health_cat">Santé</string>
+
+
+    <string name="pref_sync">Prf sync</string>
+    <string name="pref_sync_summ">Prf sync Summ</string>
 
 </resources>

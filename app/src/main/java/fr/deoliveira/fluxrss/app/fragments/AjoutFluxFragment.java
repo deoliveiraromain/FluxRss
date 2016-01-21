@@ -1,4 +1,4 @@
-package fr.deoliveira.fluxrss.app.application;
+package fr.deoliveira.fluxrss.app.fragments;
 
 import android.app.Activity;
 import android.net.Uri;

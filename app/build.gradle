@@ -2,6 +2,7 @@ buildscript {
     repositories {
         jcenter()
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
     }
@@ -10,16 +11,19 @@ apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "fr.deoliveira.fluxrss.app"
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -32,9 +36,13 @@ android {
 }
 
 dependencies {
-    //compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('libs/Simple-Rss2-Android.jar')
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.android.support:support-v4:22.2.0'
-    compile 'com.android.support:design:22.2.0'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.crazyhitty.chdev.ks:rss-manager:0.21'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:preference-v7:23.1.1'
+    //compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

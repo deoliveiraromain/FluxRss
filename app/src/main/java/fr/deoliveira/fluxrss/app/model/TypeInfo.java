@@ -1,11 +1,12 @@
-package fr.deoliveira.fluxrss.app.fluxrss;
+package fr.deoliveira.fluxrss.app.model;
 
 /**
  * Created by Romain on 17/06/2015.
  */
 public enum TypeInfo {
 
-    UNE("‡ la une"), ECONOMIE("Èconomie"), SPORT("sport"), INTERNATIONAL("international"), TECHNOLOGIES("Technologies");
+    UNE("A la une"), ECONOMIE("Economie"), SPORT("Sport"), INTERNATIONAL("International"), TECHNOLOGIES("Technologies"),
+    CULTURE("Culture"),SANTE("Sant√©");
 
     private String value;
 

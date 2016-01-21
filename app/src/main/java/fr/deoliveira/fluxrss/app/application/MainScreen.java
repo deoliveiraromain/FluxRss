@@ -1,60 +1,100 @@
 package fr.deoliveira.fluxrss.app.application;
 
-import android.content.Context;
-import android.content.Intent;
+import android.content.ContentValues;
 import android.content.res.Configuration;
-import android.net.ConnectivityManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import fr.deoliveira.fluxrss.app.R;
-import fr.deoliveira.fluxrss.app.application.AjoutFluxFragment;
-import fr.deoliveira.fluxrss.app.fluxrss.FluxRssFragment;
-import fr.deoliveira.fluxrss.app.itemrss.ItemRssFragment;
+import fr.deoliveira.fluxrss.app.base.RSSContentProvider;
+import fr.deoliveira.fluxrss.app.base.RSSTable;
+import fr.deoliveira.fluxrss.app.fragments.AjoutFluxFragment;
+import fr.deoliveira.fluxrss.app.fragments.FluxRssFragment;
+import fr.deoliveira.fluxrss.app.fragments.SettingsFragment;
+import fr.deoliveira.fluxrss.app.model.FluxRss;
+import fr.deoliveira.fluxrss.app.model.TypeInfo;
+import fr.deoliveira.fluxrss.app.utils.FluxUtils;
+
+import java.util.List;
 
 
 /**
  * Created by Romain on 07/05/2015.
  */
-public class MainScreen extends AppCompatActivity implements FluxRssFragment.OnFluxRssInteractionListener,
-        ItemRssFragment.OnItemRssInteractionListener, AjoutFluxFragment.OnAjoutFluxInteractionListener {
+public class MainScreen extends AppCompatActivity implements
+        SettingsFragment.OnParametersFragmentInteractionListener,
+        FluxRssFragment.OnFluxRssInteractionListener,
+        AjoutFluxFragment.OnAjoutFluxInteractionListener {
 
     private DrawerLayout dlDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
+    private ActionBarDrawerToggle mDrawerToggle;
 
-    //TODO: BROADCAST RECEIVER quand on est sur un fragment de ItemRss pour parser régulièrement et afficher une notif quand nouveaux items
+    //TODO: BROADCAST RECEIVER quand on est sur un fragment de ItemRss pour parser rï¿½guliï¿½rement et afficher une notif quand nouveaux items
     //TODO: BROADCAST RECEIVER quand on perd la NETWORK CO
     //TODO : Mettre les requetes dans un HANDLER OU ASYNC (mettre ca dans le Provider ?)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        // Find our drawer view
         dlDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        // Set the menu icon instead of the launcher icon.
         final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_drawer);
         ab.setDisplayHomeAsUpEnabled(true);
-
-        // Find our drawer view
+        ab.setHomeButtonEnabled(true);
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this, dlDrawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        );
+        dlDrawer.setDrawerListener(mDrawerToggle);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
-        // Setup drawer view
         setupDrawerContent(nvDrawer);
+        if (FluxUtils.isFirstLaunch(MainScreen.this)) {
+            Log.i(this.getClass().getName(), "FIRST APP LAUNCH !");
+            insertDefaultSources();
+            FluxUtils.setNotFirstLaunch(MainScreen.this);
+        }
+    }
 
+
+    private boolean checkSources() {
+        //PROJECTION SELECTION SELECTION ARGS SORT ORDER
+        Log.i(this.getClass().getName(), "CHECK RSS SOURCES IN DB...");
+        Cursor c = getContentResolver().query(RSSContentProvider.CONTENT_URI, new String[]{"COUNT(*)"}, null, null, null);
+        boolean res = c.moveToFirst();
+        int nb = 0;
+        if (res) {
+            nb = c.getInt(0);
+            Log.d(this.getClass().getName(), "Nombre de flux : " + nb);
+        }
+        return res && nb > 0;
+    }
+
+    private void insertDefaultSources() {
+        Log.i(this.getClass().getName(), "RSS SOURCES EMPTY ...SET TO DEFAULT SOURCES...");
+        List<FluxRss> listeFlux = RSSTable.getDefaultFlux();
+        List<ContentValues> listeCv = RSSTable.getContentValuesFromFlux(listeFlux);
+        for (FluxRss flux : listeFlux) {
+            Log.d(this.getClass().getName(), "TEST RSS " + flux.toString());
+        }
+        for (ContentValues cv : listeCv) {
+            Log.d(this.getClass().getName(), "TEST RSS CV2 : " + cv.toString());
+            getContentResolver().insert(RSSContentProvider.CONTENT_URI, cv);
+        }
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -69,39 +109,56 @@ public class MainScreen extends AppCompatActivity implements FluxRssFragment.OnF
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the planet to show based on
-        // position
         Fragment fragment = null;
-
         Class fragmentClass;
-        String typeInfos;
-
-
+        TypeInfo typeInfo = null;
         switch (menuItem.getItemId()) {
-            case R.id.nav_flux:
+            case R.id.nav_top:
                 fragmentClass = FluxRssFragment.class;
+                typeInfo = TypeInfo.UNE;
+                break;
+            case R.id.nav_eco:
+                fragmentClass = FluxRssFragment.class;
+                typeInfo = TypeInfo.ECONOMIE;
+                break;
+            case R.id.nav_sport:
+                fragmentClass = FluxRssFragment.class;
+                typeInfo = TypeInfo.SPORT;
+                break;
+            case R.id.nav_inter:
+                fragmentClass = FluxRssFragment.class;
+                typeInfo = TypeInfo.INTERNATIONAL;
+                break;
+            case R.id.nav_tech:
+                fragmentClass = FluxRssFragment.class;
+                typeInfo = TypeInfo.TECHNOLOGIES;
+                break;
+            case R.id.nav_cult:
+                fragmentClass = FluxRssFragment.class;
+                typeInfo = TypeInfo.CULTURE;
+                break;
+            case R.id.nav_health:
+                fragmentClass = FluxRssFragment.class;
+                typeInfo = TypeInfo.SANTE;
                 break;
             case R.id.nav_ajout:
                 fragmentClass = AjoutFluxFragment.class;
                 break;
             case R.id.nav_settings:
                 fragmentClass = SettingsFragment.class;
-                //TODO : ici implémenter le callBack dans ce cas de fragment!
                 break;
-//            case R.id.nav_third_fragment:
-//                fragmentClass = ThirdFragment.class;
-//                break;
             default:
                 fragmentClass = FluxRssFragment.class;
+                typeInfo = TypeInfo.UNE;
         }
-
         try {
-            fragment = (Fragment) fragmentClass.newInstance();
-//            if (fragment instanceof FluxRssFragment) {
-//                Bundle args = new Bundle();
-//                args.putString(FluxRssFragment.ARG_PARAM_TYPE, "");
-//                fragment.setArguments(args);
-//            }
+            if (fragmentClass.equals(FluxRssFragment.class)) {
+                Log.d(this.getClass().getName(), "EQUALS FLUX CLASS");
+                fragment = FluxRssFragment.newInstance(typeInfo.name());
+            } else {
+                Log.d(this.getClass().getName(), "NOT EQUALS FLUX CLASS");
+                fragment = (Fragment) fragmentClass.newInstance();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,17 +174,6 @@ public class MainScreen extends AppCompatActivity implements FluxRssFragment.OnF
         dlDrawer.closeDrawers();
     }
 
-
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        // If the nav drawer is open, hide action items related to the content
-//        if (dlDrawer.isDrawerOpen()) {
-//            // Uncomment to hide menu items
-//            // menu.findItem(R.id.mi_test).setVisible(false);
-//        }
-//        return super.onPrepareOptionsMenu(menu);
-//    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -135,13 +181,11 @@ public class MainScreen extends AppCompatActivity implements FluxRssFragment.OnF
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // The action bar home/up action should open or close the drawer.
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                dlDrawer.openDrawer(GravityCompat.START);
-                return true;
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -149,13 +193,15 @@ public class MainScreen extends AppCompatActivity implements FluxRssFragment.OnF
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
 
     @Override
     public void onAjoutFluxInteraction(Uri uri) {
@@ -164,30 +210,46 @@ public class MainScreen extends AppCompatActivity implements FluxRssFragment.OnF
 
     @Override
     public void onFluxRssInteraction(String url) {
-        ItemRssFragment itemRssFragment = null;
-        Log.d("testItemRssCreation", "CreationEnCours");
-        try {
-            itemRssFragment = ItemRssFragment.newInstance(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // Insert the fragment by replacing any existing fragment
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.flContent, itemRssFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        Log.d(this.getClass().getName(), "FLUXRSSINTERATION");
+//        try {
+//            itemRssFragment = ItemRssFragment.newInstance(url);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        // Insert the fragment by replacing any existing fragment
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.flContent, itemRssFragment);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
     }
 
     @Override
-    public void onItemRssInteraction(Uri uri) {
+    public void onParametersFragmentInteraction() {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(this.getClass().getName(), "ONPAUSE MainActivity");
+    }
 
-    private boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null &&
-                cm.getActiveNetworkInfo().isConnectedOrConnecting();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(this.getClass().getName(), "ONSTOP MainActivity");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(this.getClass().getName(), "ONRESUME MainActivity");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(this.getClass().getName(), "ONSTART MainActivity");
     }
 }

@@ -1,15 +1,22 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Base application theme. NoActionBar existe deja-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!--<itemrss name="android:windowNoTitle">true</itemrss>-->
         <!--We will be using the toolbar so no need to show ActionBar-->
         <!--<itemrss name="android:windowActionBar">false</itemrss>-->
         <!--<itemrss name="windowActionBar">false</itemrss>
         <itemrss name="windowNoTitle">true</itemrss>-->
+
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
         <item name="colorPrimary">@color/rssRed</item>
         <item name="colorPrimaryDark">@color/rssRedDark</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
 </resources>

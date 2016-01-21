@@ -1,4 +1,4 @@
-package fr.deoliveira.fluxrss.app.application;
+package fr.deoliveira.fluxrss.app.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,7 +14,7 @@ public class ConnectivityManager extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d("CO_LOST", "CONNECTION LOST");
         //TODO : en faire une notification
-        Toast toast = Toast.makeText(context, "Attention : La connexion a changée."
+        Toast toast = Toast.makeText(context, "Attention : La connexion a changÃ©e."
                 , Toast.LENGTH_LONG);
         toast.show();
 
