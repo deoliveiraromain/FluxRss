@@ -88,6 +88,9 @@ public class RSSTable {
         fluxRsss.add(fluxRss);
         fluxRss = new FluxRss("Le Monde", "http://rss.lemonde.fr/c/205/f/3050/index.rss", TypeInfo.UNE);
         fluxRsss.add(fluxRss);
+        fluxRss  = new FluxRss("YAHOO", "http://news.yahoo.com/rss/", TypeInfo.UNE);
+        fluxRsss.add(fluxRss);
+
 
         //Culture
         fluxRss = new FluxRss("Le Monde Culture","http://rss.lemonde.fr/c/205/f/3060/index.rss",TypeInfo.CULTURE);

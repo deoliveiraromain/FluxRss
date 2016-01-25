@@ -68,6 +68,8 @@ public class MainScreen extends AppCompatActivity implements
             insertDefaultSources();
             FluxUtils.setNotFirstLaunch(MainScreen.this);
         }
+
+        selectDrawerItem(nvDrawer.getMenu().findItem(R.id.nav_top));
     }
 
 
@@ -153,10 +155,8 @@ public class MainScreen extends AppCompatActivity implements
         }
         try {
             if (fragmentClass.equals(FluxRssFragment.class)) {
-                Log.d(this.getClass().getName(), "EQUALS FLUX CLASS");
                 fragment = FluxRssFragment.newInstance(typeInfo.name());
             } else {
-                Log.d(this.getClass().getName(), "NOT EQUALS FLUX CLASS");
                 fragment = (Fragment) fragmentClass.newInstance();
             }
         } catch (Exception e) {

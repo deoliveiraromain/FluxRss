@@ -4,9 +4,15 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:id="@+id/rootFlux">
-    <ListView android:layout_height="fill_parent"
+    <!--<ListView android:layout_height="fill_parent"
               android:layout_width="fill_parent"
               android:layout_marginTop="20dp"
               android:id="@+id/listFlux">
     </ListView>
+    -->
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewItemRss"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    />
 </LinearLayout>

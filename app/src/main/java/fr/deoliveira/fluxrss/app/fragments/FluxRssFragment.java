@@ -7,12 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 import at.theengine.android.simple_rss2_android.RSSItem;
 import at.theengine.android.simple_rss2_android.SimpleRss2Parser;
@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FluxRssFragment extends Fragment implements
-        AdapterView.OnItemClickListener,
         LoaderManager.LoaderCallbacks<Cursor>,
         OnRssLoadListener {
 
@@ -41,8 +40,11 @@ public class FluxRssFragment extends Fragment implements
     private TypeInfo type;
     private String typeStr;
 
-    // private ArrayAdapter<FluxRss> fluxRssAdapter;
-    private ListView listViewItemRss;
+    //private ListView listViewItemRss;
+    private RecyclerView recyclerViewItemRss;
+    //private List<ItemRss> listeItems;
+
+
     private ItemRssAdapter itemRssAdapter;
     private List<FluxRss> listeFlux;
 
@@ -75,16 +77,32 @@ public class FluxRssFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_flux_rss, container, false);
-        listViewItemRss = (ListView) rootView.findViewById(R.id.listFlux);
-        listViewItemRss.setOnItemClickListener(this);
+        //listViewItemRss = (ListView) rootView.findViewById(R.id.listFlux);
+        //listViewItemRss.setOnItemClickListener(this);
+
+
+
+
+        this.recyclerViewItemRss = (RecyclerView) rootView.findViewById(R.id.recyclerViewItemRss);
+//        this.recyclerViewItemRss.addItemDecoration(
+//                new HorizontalDividerItemDecoration.Builder(getContext())
+//                        .colorResId(R.color.lightgrey)
+//                        .sizeResId(R.dimen.list_event_divider_height)
+//                        .marginResId(R.dimen.list_event_divider_margin, R.dimen.list_event_divider_margin)
+//                        .build()
+ //               );
+
+        //this.listeItems = new ArrayList<>();
+        this.itemRssAdapter = new ItemRssAdapter(new ArrayList<ItemRss>());
+        recyclerViewItemRss.setAdapter(itemRssAdapter);
+        recyclerViewItemRss.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewItemRss.setHasFixedSize(true);
         return rootView;
     }
 
 
     private void loadDataFromDb() {
-
         getLoaderManager().initLoader(0, null, this);
-
     }
 
     @Override
@@ -105,8 +123,8 @@ public class FluxRssFragment extends Fragment implements
         List<FluxRss> rsses = RSSTable.mapFromCursor(data);
         Log.i(this.getClass().getName(), "CallBack RSS Load Data DB : " + rsses.size());
         this.listeFlux = rsses;
-        loadFeeds();
-        //loadFeeds2();
+        //loadFeeds();
+        loadFeeds2();
     }
 
     @Override
@@ -139,12 +157,12 @@ public class FluxRssFragment extends Fragment implements
     }
 
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        RssItem itemRss = (RssItem) listViewItemRss.getItemAtPosition(position);
-        String url = itemRss.getLink();
-        this.onButtonPressed(url);
-    }
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        RssItem itemRss = (RssItem) recyclerViewItemRss.getAdapter()getItemAtPosition(position);
+//        String url = itemRss.getLink();
+//        this.onButtonPressed(url);
+//    }
 
     private void loadFeeds() {
         //you can also pass multiple urls
@@ -167,7 +185,6 @@ public class FluxRssFragment extends Fragment implements
     }
 
     private void loadFeeds2() {
-
         String[] urlArr = new String[this.listeFlux.size()];
         List<String> listUrl = new ArrayList<>();
         for (FluxRss flux : this.listeFlux) {
@@ -175,6 +192,8 @@ public class FluxRssFragment extends Fragment implements
         }
 
         listUrl.toArray(urlArr);
+
+
         for (String str : urlArr) {
             SimpleRss2Parser parser = new SimpleRss2Parser(str, new SimpleRss2ParserCallback() {
                 @Override
@@ -186,9 +205,9 @@ public class FluxRssFragment extends Fragment implements
                 public void onError(Exception ex) {
                     Log.e(this.getClass().getName(), ex.getMessage());
                 }
-            }
-            );
+            });
             Log.d(this.getClass().getName(), "TEST : " + str);
+            parser.parseAsync();
         }
 
 
@@ -196,36 +215,32 @@ public class FluxRssFragment extends Fragment implements
 
     private void bind(List<RssItem> list) {
         List<ItemRss> listeConv = new ArrayList<>();
-        for(RssItem item : list){
-            ItemRss itemRss =  new ItemRss();
+        for (RssItem item : list) {
+            ItemRss itemRss = new ItemRss();
             itemRss.setDescription(item.getDescription());
             itemRss.setLien(item.getLink());
             itemRss.setTitre(item.getTitle());
             itemRss.setLienImage(item.getImageUrl());
-
-
             listeConv.add(itemRss);
         }
 
 
-
-        this.itemRssAdapter = new ItemRssAdapter(this.getActivity(), listeConv);
-        this.listViewItemRss.setAdapter(itemRssAdapter);
+       // this.itemRssAdapter = new ItemRssAdapter(this.getActivity(), listeConv);
+       // this.listViewItemRss.setAdapter(itemRssAdapter);
     }
 
     private void bind2(List<RSSItem> list) {
 
         List<ItemRss> listeConv = new ArrayList<>();
-        for(RSSItem item : list){
-            ItemRss itemRss =  new ItemRss();
+        for (RSSItem item : list) {
+            ItemRss itemRss = new ItemRss();
             itemRss.setDescription(item.getDescription());
             itemRss.setLien(item.getLink().toString());
             itemRss.setTitre(item.getTitle());
+            itemRss.setDate(item.getDate());
             listeConv.add(itemRss);
         }
-
-        this.itemRssAdapter = new ItemRssAdapter(this.getActivity(), listeConv);
-        this.listViewItemRss.setAdapter(itemRssAdapter);
+        this.itemRssAdapter.add(listeConv);
     }
 
     @Override
