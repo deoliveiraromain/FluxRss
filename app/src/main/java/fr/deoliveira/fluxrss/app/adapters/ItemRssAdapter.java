@@ -37,6 +37,7 @@ public class ItemRssAdapter extends RecyclerView.Adapter<ItemRssAdapter.ViewHold
         holder.titre.setText(itemRss.getTitre());
         holder.description.setText(Html.fromHtml(itemRss.getDescription()));
         holder.date.setText(itemRss.getDate());
+        holder.source.setText(itemRss.getSource());
         // Here you apply the animation when the view is bound
         //setAnimation(holder.itemView, position);
     }
@@ -65,12 +66,14 @@ public class ItemRssAdapter extends RecyclerView.Adapter<ItemRssAdapter.ViewHold
         private TextView titre;
         private TextView description;
         private TextView date;
+        private TextView source;
 
         public ViewHolder(View itemView) {
             super(itemView);
             titre = (TextView) itemView.findViewById(R.id.titre);
             description = (TextView) itemView.findViewById(R.id.resume);
             date = (TextView) itemView.findViewById(R.id.date);
+            source = (TextView) itemView.findViewById(R.id.source);
             itemView.setOnClickListener(this);
         }
 

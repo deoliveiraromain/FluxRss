@@ -4,7 +4,7 @@
     <color name="colorFeedHunter">#ffd764</color>
     <color name="rssRed">#f44336</color>
     <color name="rssRedDark">#d32f2f</color>
-    <color name="rssRedDarker">#ff20d318</color>
+    <color name="rssGreenDarker">#ff20d318</color>
     <item name="darkgrey" type="color">#FFA9A9A9</item>
     <color name="black">#FF000000</color>
 

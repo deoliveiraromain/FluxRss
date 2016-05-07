@@ -12,6 +12,18 @@
         <item name="colorPrimary">@color/rssRed</item>
         <item name="colorPrimaryDark">@color/rssRedDark</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="cardViewStyle">@style/cardViewFlux</item>
+    </style>
+
+    <style name="cardViewFlux"  parent="CardView">
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">10dp</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <!--<item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -13,6 +13,7 @@ public class ItemRss {
     private String lienImage;
     //private Date date;
     private String date;
+    private String source;
 
     @Override
     public boolean equals(Object o) {
@@ -78,5 +79,13 @@ public class ItemRss {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

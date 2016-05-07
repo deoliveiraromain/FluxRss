@@ -84,7 +84,7 @@ public class RSSTable {
         //UNE
         fluxRss = new FluxRss("Figaro", "http://rss.lefigaro.fr/lefigaro/laune", TypeInfo.UNE);
         fluxRsss.add(fluxRss);
-        fluxRss = new FluxRss("Europe 1", "http://europe1.fr.feedsportal.com/c/32376/f/546038/index.rss", TypeInfo.UNE);
+       // fluxRss = new FluxRss("Europe 1", "http://europe1.fr.feedsportal.com/c/32376/f/546038/index.rss", TypeInfo.UNE);
         fluxRsss.add(fluxRss);
         fluxRss = new FluxRss("Le Monde", "http://rss.lemonde.fr/c/205/f/3050/index.rss", TypeInfo.UNE);
         fluxRsss.add(fluxRss);

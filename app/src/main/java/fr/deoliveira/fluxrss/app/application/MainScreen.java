@@ -49,6 +49,17 @@ public class MainScreen extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setViews();
+        if (FluxUtils.isFirstLaunch(MainScreen.this)) {
+            Log.i(this.getClass().getName(), "FIRST APP LAUNCH !");
+            insertDefaultSources();
+            FluxUtils.setNotFirstLaunch(MainScreen.this);
+        }
+
+        selectDrawerItem(nvDrawer.getMenu().findItem(R.id.nav_top));
+    }
+
+    private void setViews(){
         setContentView(R.layout.main_activity);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -63,16 +74,7 @@ public class MainScreen extends AppCompatActivity implements
         dlDrawer.setDrawerListener(mDrawerToggle);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
-        if (FluxUtils.isFirstLaunch(MainScreen.this)) {
-            Log.i(this.getClass().getName(), "FIRST APP LAUNCH !");
-            insertDefaultSources();
-            FluxUtils.setNotFirstLaunch(MainScreen.this);
-        }
-
-        selectDrawerItem(nvDrawer.getMenu().findItem(R.id.nav_top));
     }
-
-
     private boolean checkSources() {
         //PROJECTION SELECTION SELECTION ARGS SORT ORDER
         Log.i(this.getClass().getName(), "CHECK RSS SOURCES IN DB...");
@@ -211,16 +213,6 @@ public class MainScreen extends AppCompatActivity implements
     @Override
     public void onFluxRssInteraction(String url) {
         Log.d(this.getClass().getName(), "FLUXRSSINTERATION");
-//        try {
-//            itemRssFragment = ItemRssFragment.newInstance(url);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        // Insert the fragment by replacing any existing fragment
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.flContent, itemRssFragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
     }
 
     @Override
