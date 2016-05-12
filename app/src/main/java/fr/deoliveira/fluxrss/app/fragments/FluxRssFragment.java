@@ -16,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import at.theengine.android.simple_rss2_android.RSSItem;
+import com.einmalfel.earl.EarlParser;
+import com.einmalfel.earl.Feed;
+import com.einmalfel.earl.Item;
 import fr.deoliveira.fluxrss.app.R;
 import fr.deoliveira.fluxrss.app.adapters.ItemRssAdapter;
 import fr.deoliveira.fluxrss.app.base.RSSContentProvider;
@@ -23,11 +26,16 @@ import fr.deoliveira.fluxrss.app.base.RSSTable;
 import fr.deoliveira.fluxrss.app.model.FluxRss;
 import fr.deoliveira.fluxrss.app.model.ItemRss;
 import fr.deoliveira.fluxrss.app.utils.SimpleRssParserExt;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.DataFormatException;
 
 public class FluxRssFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
@@ -106,7 +114,7 @@ public class FluxRssFragment extends Fragment implements
         List<FluxRss> rsses = RSSTable.mapFromCursor(data);
         Log.i(this.getClass().getName(), "CallBack RSS Load Data DB : " + rsses.size());
         this.listeFlux = rsses;
-        loadFeeds();
+        loadFeedsNew();
     }
 
     @Override
@@ -138,6 +146,31 @@ public class FluxRssFragment extends Fragment implements
         mListener = null;
     }
 
+    private void loadFeedsNew() {
+        for (FluxRss flux : this.listeFlux) {
+            InputStream inputStream = null;
+            try {
+                inputStream = new URL(flux.getUrl()).openConnection().getInputStream();
+                Feed feed = null;
+                feed = EarlParser.parseOrThrow(inputStream, 0);
+                Log.i("FLUXRSS", "Processing feed: " + feed.getTitle());
+                for (Item item : feed.getItems()) {
+                    String title = item.getTitle();
+                    Log.i("FLUXRSS", "Item title: " + (title == null ? "N/A" : title));
+                }
+            } catch (XmlPullParserException e) {
+                Log.e("FLUXRSS", e.getMessage(), e);
+            } catch (DataFormatException e) {
+                Log.e("FLUXRSS", e.getMessage(), e);
+            } catch (IOException e) {
+                Log.e("FLUXRSS", e.getMessage(), e);
+            }
+
+        }
+
+
+    }
+
     private void loadFeeds() {
         final Map<String, String> mapNametUrl = new HashMap<>();
         for (FluxRss flux : this.listeFlux) {
@@ -148,26 +181,6 @@ public class FluxRssFragment extends Fragment implements
         int i = 0;
         boolean endList = false;
         for (final String key : mapNametUrl.keySet()) {
-
-//           SimpleRss2Parser parser = new SimpleRss2Parser(mapNametUrl.get(key), new SimpleRss2ParserCallback() {
-//
-//               @Override
-//               public void onFeedParsed(List<RSSItem> items) {
-//                   bind(items,key);
-//                   if(i==size){
-//                       displayRSSList();
-//                   }
-//                   else {
-//                       // need to reimplement SimpleRss
-//                       // i++;
-//                   }
-//               }
-//
-//               @Override
-//               public void onError(Exception ex) {
-//                   Log.e(this.getClass().getName(), ex.getMessage());
-//               }
-//           });
             ++i;
             if (i == size) {
                 endList = true;
