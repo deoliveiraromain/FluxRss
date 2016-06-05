@@ -2,6 +2,7 @@ package fr.deoliveira.fluxrss.app.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -15,10 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
 import at.theengine.android.simple_rss2_android.RSSItem;
+
 import com.einmalfel.earl.EarlParser;
 import com.einmalfel.earl.Feed;
 import com.einmalfel.earl.Item;
+
 import fr.deoliveira.fluxrss.app.R;
 import fr.deoliveira.fluxrss.app.adapters.ItemRssAdapter;
 import fr.deoliveira.fluxrss.app.base.RSSContentProvider;
@@ -26,6 +30,7 @@ import fr.deoliveira.fluxrss.app.base.RSSTable;
 import fr.deoliveira.fluxrss.app.model.FluxRss;
 import fr.deoliveira.fluxrss.app.model.ItemRss;
 import fr.deoliveira.fluxrss.app.utils.SimpleRssParserExt;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -79,7 +84,7 @@ public class FluxRssFragment extends Fragment implements
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_flux_rss, container, false);
         this.recyclerViewItemRss = (RecyclerView) rootView.findViewById(R.id.recyclerViewItemRss);
-        this.layout_loading_event = (LinearLayout) rootView.findViewById(R.id.layout_loading_event);
+        // this.layout_loading_event = (LinearLayout) rootView.findViewById(R.id.layout_loading_event);
 
         this.itemRssAdapter = new ItemRssAdapter(new ArrayList<ItemRss>());
         recyclerViewItemRss.setAdapter(itemRssAdapter);
@@ -114,7 +119,8 @@ public class FluxRssFragment extends Fragment implements
         List<FluxRss> rsses = RSSTable.mapFromCursor(data);
         Log.i(this.getClass().getName(), "CallBack RSS Load Data DB : " + rsses.size());
         this.listeFlux = rsses;
-        loadFeedsNew();
+        // loadFeedsNew();
+        new DllAsyncTask().execute();
     }
 
     @Override
@@ -146,18 +152,21 @@ public class FluxRssFragment extends Fragment implements
         mListener = null;
     }
 
-    private void loadFeedsNew() {
+    private List<Item> loadFeedsNew() {
+        List<Item> listItem = new ArrayList<>();
         for (FluxRss flux : this.listeFlux) {
             InputStream inputStream = null;
             try {
                 inputStream = new URL(flux.getUrl()).openConnection().getInputStream();
                 Feed feed = null;
                 feed = EarlParser.parseOrThrow(inputStream, 0);
-                Log.i("FLUXRSS", "Processing feed: " + feed.getTitle());
+                Log.i("FLUXRSS", "Processing feed: " + feed.getTitle() + flux.getUrl());
                 for (Item item : feed.getItems()) {
                     String title = item.getTitle();
                     Log.i("FLUXRSS", "Item title: " + (title == null ? "N/A" : title));
                 }
+                listItem.addAll(feed.getItems());
+                // bindNew(listItem,flux.getAuteur());
             } catch (XmlPullParserException e) {
                 Log.e("FLUXRSS", e.getMessage(), e);
             } catch (DataFormatException e) {
@@ -167,8 +176,7 @@ public class FluxRssFragment extends Fragment implements
             }
 
         }
-
-
+        return listItem;
     }
 
     private void loadFeeds() {
@@ -192,12 +200,12 @@ public class FluxRssFragment extends Fragment implements
     }
 
     private void displayLoadingLayout() {
-        this.layout_loading_event.setVisibility(View.VISIBLE);
+        //this.layout_loading_event.setVisibility(View.VISIBLE);
         this.recyclerViewItemRss.setVisibility(View.GONE);
     }
 
     private void displayRSSList() {
-        this.layout_loading_event.setVisibility(View.GONE);
+        // this.layout_loading_event.setVisibility(View.GONE);
         this.recyclerViewItemRss.setVisibility(View.VISIBLE);
     }
 
@@ -209,6 +217,21 @@ public class FluxRssFragment extends Fragment implements
             itemRss.setLien(item.getLink().toString());
             itemRss.setTitre(item.getTitle());
             itemRss.setDate(item.getDate());
+            itemRss.setSource(source);
+            listeConv.add(itemRss);
+        }
+        this.itemRssAdapter.add(listeConv);
+    }
+
+    private void bindNew(List<Item> list, String source) {
+        List<ItemRss> listeConv = new ArrayList<>();
+        for (Item item : list) {
+            ItemRss itemRss = new ItemRss();
+            itemRss.setDescription(item.getDescription());
+            itemRss.setLien(item.getLink().toString());
+            itemRss.setTitre(item.getTitle());
+            if (item.getPublicationDate() != null)
+                itemRss.setDate(item.getPublicationDate().toString());
             itemRss.setSource(source);
             listeConv.add(itemRss);
         }
@@ -233,6 +256,21 @@ public class FluxRssFragment extends Fragment implements
     public interface OnFluxRssInteractionListener {
         void onFluxRssInteraction(String url);
 
+    }
+
+    private class DllAsyncTask extends AsyncTask<Object, Void, List<Item>> {
+
+
+        @Override
+        protected List<Item> doInBackground(Object[] params) {
+            return loadFeedsNew();
+        }
+
+        @Override
+        protected void onPostExecute(List<Item> list) {
+            super.onPostExecute(list);
+            bindNew(list, "test");
+        }
     }
 
 }
