@@ -92,9 +92,10 @@ public class MainScreen extends AppCompatActivity implements
         Log.i(this.getClass().getName(), "RSS SOURCES EMPTY ...SET TO DEFAULT SOURCES...");
         List<FluxRss> listeFlux = RSSTable.getDefaultFlux();
         List<ContentValues> listeCv = RSSTable.getContentValuesFromFlux(listeFlux);
-        for (FluxRss flux : listeFlux) {
+        /*for (FluxRss flux : listeFlux) {
             Log.d(this.getClass().getName(), "TEST RSS " + flux.toString());
         }
+        */
         for (ContentValues cv : listeCv) {
             Log.d(this.getClass().getName(), "TEST RSS CV2 : " + cv.toString());
             getContentResolver().insert(RSSContentProvider.CONTENT_URI, cv);

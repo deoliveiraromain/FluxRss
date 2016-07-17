@@ -23,6 +23,7 @@
                 android:name=".receivers.ConnectivityManager"
                 android:label="NetworkConnection"
                 android:exported = "false"
+            android:enabled="false"
                  >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
