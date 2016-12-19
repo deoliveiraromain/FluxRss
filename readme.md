@@ -1,2 +1,2 @@
-FluxRss est un premier projet qui met en pratique les connaissances Android.
-Il permet de consulter une liste de Flux Rss.
+# flux-rss-android
+Projet Android qui permet de consulter une liste de Flux Rss suivant différentes catégories (Une, sport, culture, high tech ...)
